@@ -1,10 +1,125 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/main"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".SkinTypeActivity">
+    android:layout_height="match_parent">
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="16dp"
+        android:layout_marginVertical="30dp"
+        android:layout_marginHorizontal="12dp">
+
+        <TextView
+            android:id="@+id/header"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:text="@string/skin_type_form_header"
+            android:textSize="32sp"
+            android:textStyle="bold"
+            android:textAlignment="center"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/tv_skin_type_question"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="24dp"
+            android:text="@string/skin_type_question"
+            android:textSize="24sp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/header" />
+
+        <RadioGroup
+            android:id="@+id/radio_skin_type"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tv_skin_type_question">
+
+            <RadioButton
+                android:id="@+id/radio_normal"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/normal"
+                android:textSize="20sp"
+                android:paddingHorizontal="5dp"/>
+
+            <RadioButton
+                android:id="@+id/radio_oily"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/oily"
+                android:textSize="20sp"
+                android:paddingHorizontal="5dp"/>
+
+            <RadioButton
+                android:id="@+id/radio_dry"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/dry"
+                android:textSize="20sp"
+                android:paddingHorizontal="5dp"/>
+
+            <RadioButton
+                android:id="@+id/radio_combination"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/combination"
+                android:textSize="20sp"
+                android:paddingHorizontal="5dp"/>
+        </RadioGroup>
+
+        <TextView
+            android:id="@+id/sensitive_skin_question"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="24dp"
+            android:text="@string/sensitive_skin_question"
+            android:textSize="24sp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/radio_skin_type" />
+
+        <RadioGroup
+            android:id="@+id/radio_sensitive_skin"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:orientation="horizontal"
+            android:paddingHorizontal="20dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/sensitive_skin_question">
+
+            <RadioButton
+                android:id="@+id/radio_sensitive"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/sensitive"
+                android:textSize="20sp"
+                android:paddingHorizontal="5dp"
+                android:layout_marginHorizontal="30dp"/>
+
+            <RadioButton
+                android:id="@+id/radio_not_sensitive"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/not_sensitive"
+                android:textSize="20sp"
+                android:paddingHorizontal="5dp"
+                android:layout_marginHorizontal="30dp"/>
+        </RadioGroup>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</ScrollView>
