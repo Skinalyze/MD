@@ -10,10 +10,10 @@
         android:layout_width="0dp"
         android:layout_height="?attr/actionBarSize"
         app:navigationIcon="@drawable/ic_back"
-        app:title="@string/product_name"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"/>
+        app:layout_constraintEnd_toEndOf="parent"
+        tools:text="@string/product_name"/>
 
     <ScrollView
         android:layout_width="0dp"
@@ -81,9 +81,9 @@
                 android:layout_marginTop="16dp"
                 android:textSize="18sp"
                 android:textStyle="bold"
+                android:text="@string/price_label"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/tv_description"
-                tools:text="@string/price_label"/>
+                app:layout_constraintTop_toBottomOf="@id/tv_description" />
 
             <TextView
                 android:id="@+id/tv_price"
@@ -102,9 +102,9 @@
                 android:layout_marginTop="16dp"
                 android:textSize="18sp"
                 android:textStyle="bold"
+                android:text="@string/problem_label"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/tv_price"
-                tools:text="@string/problem_label"/>
+                app:layout_constraintTop_toBottomOf="@id/tv_price" />
 
             <TextView
                 android:id="@+id/tv_problem"
@@ -123,9 +123,9 @@
                 android:layout_marginTop="16dp"
                 android:textSize="18sp"
                 android:textStyle="bold"
+                android:text="@string/skin_type_label"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/tv_problem"
-                tools:text="@string/skin_type_label"/>
+                app:layout_constraintTop_toBottomOf="@id/tv_problem" />
 
             <TextView
                 android:id="@+id/tv_skin_type"
@@ -133,7 +133,6 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
                 android:textSize="18sp"
-
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/tv_skin_type_label"
                 tools:text="@string/product_skin_type"/>
