@@ -25,5 +25,11 @@
     <string name="sensitive_skin_question">Apakah kulit kamu sensitif?</string>
     <string name="sensitive">Ya</string>
     <string name="not_sensitive">Tidak</string>
+    <string name="onboarding_title_1">Analisis masalah kulit dengan kecerdasan buatan</string>
+    <string name="onboarding_title_2">Rekomendasi perawatan kulit yang dipersonalisasi</string>
+    <string name="onboarding_desc_1">Temukan akar masalah kulit Anda dengan akurasi tinggi.</string>
+    <string name="onboarding_desc_2">Dapatkan solusi perawatan kulit yang sesuai dengan kebutuhan unik Anda.</string>
+    <string name="sign_up">Daftar</string>
+    <string name="log_in">Masuk</string>
 
 </resources>
