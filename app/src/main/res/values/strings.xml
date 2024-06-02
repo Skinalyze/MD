@@ -31,5 +31,37 @@
     <string name="onboarding_desc_2">Dapatkan solusi perawatan kulit yang sesuai dengan kebutuhan unik Anda.</string>
     <string name="sign_up">Daftar</string>
     <string name="log_in">Masuk</string>
+    <string name="daftar">Daftar</string>
+    <string name="title_signup_page">Segera buat akun dan temukan personalisasi produk skincare khusus untukmu!</string>
+    <string name="nama">Nama</string>
+    <string name="email">Email</string>
+    <string name="password">Password</string>
+    <string name="password_too_short_error">Password tidak boleh kurang dari 8 karakter</string>
+    <string name="gender">Gender</string>
+    <string name="jenis_kelamin">Jenis Kelamin</string>
+    <string name="umur">Umur</string>
+    <string name="daftar_uppercase">DAFTAR</string>
+    <string name="masuk_uppercase">MASUK</string>
+    <string name="masuk">Masuk</string>
+    <string name="title_register_page">Segera masuk dan temukan personalisasi produk skincare khusus untukmu!</string>
+    <string name="kamera">Kamera</string>
+    <string name="profil">Profil</string>
+    <string name="pilih_dari_galeri">PILIH DARI GALERI</string>
+    <string name="ambil_foto">AMBIL FOTO</string>
+    <string name="analisis_kulit">ANALISIS KULIT</string>
+    <string name="produk">Produk</string>
+    <string name="profil_saya">Profil Saya</string>
+    <string name="perempuan">Perempuan</string>
+    <string name="jenis_kulit">Jenis Kulit</string>
+    <string name="riwayat_analisis_kulit">Riwayat Analisis Kulit</string>
+    <string name="keluar">KELUAR</string>
+    <string name="hasil_analisis">Hasil Analisis</string>
+    <string name="permasalahan_kulit">Permasalahan Kulit</string>
+    <string name="produk_skincare_yang_cocok_untuk_anda">Produk skincare yang cocok untuk Anda:</string>
+    <string name="facial_wash">FACIAL WASH</string>
+    <string name="toner">TONER</string>
+    <string name="moisturizer">MOISTURIZER</string>
+    <string name="sunscreen">SUNSCREEN</string>
+    <string name="serum">SERUM</string>
 
 </resources>
