@@ -63,5 +63,6 @@
     <string name="moisturizer">MOISTURIZER</string>
     <string name="sunscreen">SUNSCREEN</string>
     <string name="serum">SERUM</string>
+    <string name="invalid_email">Email tidak valid</string>
 
 </resources>
