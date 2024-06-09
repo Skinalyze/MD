@@ -22,7 +22,7 @@ class ProductFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        val homeViewModel =
+        val productViewModel =
             ViewModelProvider(this).get(ProductViewModel::class.java)
 
         _binding = FragmentProductBinding.inflate(inflater, container, false)
