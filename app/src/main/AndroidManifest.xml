@@ -34,10 +34,6 @@
             android:name=".OnboardingActivity"
             android:exported="false" />
         <activity
-            android:name=".DiscoveryActivity"
-            android:exported="false"
-            android:label="@string/title_activity_discovery" />
-        <activity
             android:name=".SkinTypeActivity"
             android:exported="false" />
         <activity
