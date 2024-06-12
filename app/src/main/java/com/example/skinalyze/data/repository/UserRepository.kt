@@ -4,6 +4,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.liveData
 import com.example.skinalyze.data.api.ApiConfig
 import com.example.skinalyze.data.api.ApiService
+import com.example.skinalyze.data.response.LoginRequest
 import com.example.skinalyze.data.response.LoginResponse
 import com.example.skinalyze.data.response.RegisterResponse
 import com.example.skinalyze.pref.UserModel
@@ -37,7 +38,8 @@ class UserRepository private constructor(
     fun login(email: String, password:String) : LiveData<Result<LoginResponse>> = liveData {
         emit(Result.Loading)
         try {
-            val successResponse = apiService.login(email, password)
+            val loginRequest = LoginRequest(email, password)
+            val successResponse = apiService.login(loginRequest)
             emit(Result.Success(successResponse))
             saveSession(UserModel(email, successResponse.token.toString()))
         } catch (e: Exception) {

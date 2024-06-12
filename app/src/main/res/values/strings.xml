@@ -1,9 +1,6 @@
 <resources>
     <string name="app_name">Skinalyze</string>
     <string name="title_activity_discovery">DiscoveryActivity</string>
-    <string name="title_product">Product</string>
-    <string name="title_dashboard">Dashboard</string>
-    <string name="title_notifications">Notifications</string>
     <string name="product_brand">Merk produk</string>
     <string name="product_name">Nama produk</string>
     <string name="product_image">product image</string>
@@ -64,5 +61,7 @@
     <string name="sunscreen">SUNSCREEN</string>
     <string name="serum">SERUM</string>
     <string name="invalid_email">Email tidak valid</string>
+    <string name="empty_image_warning">Silakan masukkan berkas gambar terlebih dahulu.</string>
+    <string name="image_classifier_failed">Image classifier failed to initialize. See error logs for details</string>
 
 </resources>
