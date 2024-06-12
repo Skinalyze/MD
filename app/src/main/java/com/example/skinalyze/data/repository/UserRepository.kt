@@ -2,9 +2,9 @@ package com.example.skinalyze.data.repository
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.liveData
-import com.example.skinalyze.data.api.ApiConfig
 import com.example.skinalyze.data.api.ApiService
-import com.example.skinalyze.data.response.LoginRequest
+import com.example.skinalyze.data.request.LoginRequest
+import com.example.skinalyze.data.request.RegisterRequest
 import com.example.skinalyze.data.response.LoginResponse
 import com.example.skinalyze.data.response.RegisterResponse
 import com.example.skinalyze.pref.UserModel
@@ -27,7 +27,8 @@ class UserRepository private constructor(
     fun register(nama: String, email: String, password: String, gender: String, age: Int) : LiveData<Result<RegisterResponse>> = liveData {
         emit(Result.Loading)
         try {
-            val successResponse = apiService.register(nama, email, password, gender, age)
+            val registerRequest = RegisterRequest(nama, email, password, gender, age)
+            val successResponse = apiService.register(registerRequest)
             emit(Result.Success(successResponse))
         } catch (e: Exception) {
             emit(Result.Error(e.message.toString()))
