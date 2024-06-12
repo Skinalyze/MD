@@ -8,18 +8,18 @@
     <fragment
         android:id="@+id/navigation_product"
         android:name="com.example.skinalyze.ui.product.ProductFragment"
-        android:label="@string/title_product"
+        android:label="@string/produk"
         tools:layout="@layout/fragment_product" />
 
     <fragment
-        android:id="@+id/navigation_dashboard"
-        android:name="com.example.skinalyze.ui.dashboard.DashboardFragment"
-        android:label="@string/title_dashboard"
-        tools:layout="@layout/fragment_dashboard" />
+        android:id="@+id/navigation_camera"
+        android:name="com.example.skinalyze.ui.camera.CameraFragment"
+        android:label="@string/kamera"
+        tools:layout="@layout/fragment_camera" />
 
     <fragment
-        android:id="@+id/navigation_notifications"
-        android:name="com.example.skinalyze.ui.notifications.NotificationsFragment"
-        android:label="@string/title_notifications"
-        tools:layout="@layout/fragment_notifications" />
+        android:id="@+id/navigation_profile"
+        android:name="com.example.skinalyze.ui.profile.ProfileFragment"
+        android:label="@string/profil"
+        tools:layout="@layout/fragment_profile" />
 </navigation>

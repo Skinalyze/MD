@@ -24,10 +24,10 @@ android {
                 getDefaultProguardFile("proguard-android-optimize.txt"),
                 "proguard-rules.pro"
             )
-            buildConfigField("String", "BASE_URL", "\"https://demo5646660.mockable.io/\"")
+            buildConfigField("String", "BASE_URL", "\"https://skinalyze-n3qiw3kr3a-et.a.run.app/\"")
         }
         debug {
-            buildConfigField("String", "BASE_URL", "\"https://demo5646660.mockable.io/\"")
+            buildConfigField("String", "BASE_URL", "\"https://skinalyze-n3qiw3kr3a-et.a.run.app/\"")
         }
     }
 //    compileOptions {
@@ -47,11 +47,11 @@ android {
     buildFeatures {
         viewBinding = true
         buildConfig = true
+        mlModelBinding = true
     }
 }
 
 dependencies {
-
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.appcompat)
     implementation(libs.material)
@@ -67,6 +67,10 @@ dependencies {
     implementation(libs.logging.interceptor)
     implementation(libs.androidx.lifecycle.runtime.ktx)
     implementation(libs.glide)
+    implementation(libs.tensorflow.lite.support)
+    implementation(libs.tensorflow.lite.metadata)
+    implementation(libs.tensorflow.lite.task.vision)
+    implementation(libs.androidx.camera.core)
 
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)

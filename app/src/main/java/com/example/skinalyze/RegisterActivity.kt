@@ -43,6 +43,7 @@ class RegisterActivity : AppCompatActivity() {
     }
 
     private fun setupAction() {
+
         binding.signupButton.setOnClickListener {
             showLoading(true)
             val name = binding.nameEditText.text.toString()
@@ -55,7 +56,7 @@ class RegisterActivity : AppCompatActivity() {
                     is Result.Success -> {
                         showLoading(false)
                         showToast("Account created!")
-                        val intent = Intent(this@RegisterActivity, OnboardingActivity::class.java)
+                        val intent = Intent(this@RegisterActivity, LoginActivity::class.java)
                         startActivity(intent)
                     }
                     is Result.Loading -> {
