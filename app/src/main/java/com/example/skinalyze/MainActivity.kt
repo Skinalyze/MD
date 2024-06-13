@@ -24,6 +24,9 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
 
         viewModel.getSession().observe(this) { user ->
+            Log.d("DEBUG", user.token)
+            Log.d("DEBUG", user.email)
+
             if (!user.isLogin) {
                 startActivity(Intent(this, OnboardingActivity::class.java))
                 finish()

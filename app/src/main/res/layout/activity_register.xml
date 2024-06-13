@@ -62,7 +62,7 @@
                 android:layout_height="200dp"
                 android:layout_gravity="center"
                 android:layout_marginBottom="16dp"
-                android:src="@drawable/signup" />
+                android:src="@drawable/signup_cuate" />
 
             <TextView
                 android:id="@+id/titleTextView"

@@ -1,5 +1,6 @@
 package com.example.skinalyze.data.repository
 
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.liveData
 import com.example.skinalyze.data.api.ApiService
@@ -43,6 +44,7 @@ class UserRepository private constructor(
             val successResponse = apiService.login(loginRequest)
             emit(Result.Success(successResponse))
             saveSession(UserModel(email, successResponse.token.toString()))
+            Log.d("DEBUG", getSession().toString())
         } catch (e: Exception) {
             emit(Result.Error(e.message.toString()))
         }
