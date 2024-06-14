@@ -28,8 +28,7 @@ class ResultActivity : AppCompatActivity() {
 //        }
 
         result?.let {
-            Log.d("result", it)
-//            binding.resultText.setText(it)
+            binding.skinProblem.setText(it)
         }
 
     }

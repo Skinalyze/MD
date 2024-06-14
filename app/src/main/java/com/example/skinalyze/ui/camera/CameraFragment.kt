@@ -63,6 +63,11 @@ class CameraFragment : Fragment() {
 
         _binding = FragmentCameraBinding.inflate(inflater, container, false)
         val root: View = binding.root
+
+        if (!allPermissionsGranted()) {
+            requestPermissionLauncher.launch(REQUIRED_PERMISSION)
+        }
+
         binding.galleryButton.setOnClickListener { startGallery() }
         binding.cameraButton.setOnClickListener { startCamera() }
         binding.analyzeButton.setOnClickListener {
@@ -72,10 +77,6 @@ class CameraFragment : Fragment() {
                 showToast(getString(R.string.empty_image_warning))
             }
         }
-//        val textView: TextView = binding.textDashboard
-//        cameraViewModel.text.observe(viewLifecycleOwner) {
-//            textView.text = it
-//        }
         return root
     }
 
@@ -120,7 +121,6 @@ class CameraFragment : Fragment() {
     }
 
     private fun analyzeImage() {
-        // TODO: Menganalisa gambar yang berhasil ditampilkan.
         imageClassifierHelper = ImageClassifierHelper(
             context = requireContext(),
             classifierListener = object : ImageClassifierHelper.ClassifierListener {
@@ -134,7 +134,7 @@ class CameraFragment : Fragment() {
                     requireActivity().runOnUiThread {
                         results?.let { it ->
                             Log.d("camera", it.toString())
-                            // Handle classification results here
+                            resultText = it[0].categories[0].label
                         }
                     }
                 }
@@ -146,7 +146,7 @@ class CameraFragment : Fragment() {
 
     private fun moveToResult() {
         val intent = Intent(requireContext(), ResultActivity::class.java)
-        // Add necessary extras to the intent
+        intent.putExtra(ResultActivity.EXTRA_RESULT, resultText)
         startActivity(intent)
     }
 
