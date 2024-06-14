@@ -39,7 +39,7 @@
         android:layout_marginEnd="8dp"
         android:layout_marginBottom="8dp"
         android:text="@string/ambil_foto"
-        android:backgroundTint="@color/black"
+        android:backgroundTint="@color/pink"
         app:layout_constraintBottom_toTopOf="@+id/analyzeButton"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/galleryButton" />
@@ -52,7 +52,7 @@
         android:elevation="2dp"
         android:scaleType="fitCenter"
         android:text="@string/pilih_dari_galeri"
-        android:backgroundTint="@color/black"
+        android:backgroundTint="@color/pink"
         app:layout_constraintBottom_toBottomOf="@+id/cameraButton"
         app:layout_constraintEnd_toStartOf="@+id/cameraButton"
         app:layout_constraintStart_toStartOf="parent"
@@ -66,7 +66,7 @@
         android:layout_marginEnd="8dp"
         android:layout_marginBottom="100dp"
         android:text="@string/analisis_kulit"
-        android:backgroundTint="@color/black"
+        android:backgroundTint="@color/pink"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
