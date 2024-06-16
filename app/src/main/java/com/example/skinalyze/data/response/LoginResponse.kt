@@ -6,9 +6,12 @@ class LoginResponse (
     @field:SerializedName("message")
     val message: String? = null,
 
-    @field:SerializedName("token")
-    val token: String? = null,
+    @field:SerializedName("id_user")
+    val idUser: Int? = null,
 
-    @field:SerializedName("email")
-    val email: String? = null
+    @field:SerializedName("access_token")
+    val accessToken: String? = null,
+
+    @field:SerializedName("refresh_token")
+    val refreshToken: String? = null
 )

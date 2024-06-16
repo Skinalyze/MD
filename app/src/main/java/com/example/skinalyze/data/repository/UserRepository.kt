@@ -43,7 +43,10 @@ class UserRepository private constructor(
             val loginRequest = LoginRequest(email, password)
             val successResponse = apiService.login(loginRequest)
             emit(Result.Success(successResponse))
-            saveSession(UserModel(email, successResponse.token.toString()))
+            val accessToken = successResponse.accessToken.toString()
+            val refreshToken = successResponse.refreshToken.toString()
+            val idUser = successResponse.idUser.toString()
+            saveSession(UserModel(accessToken, refreshToken, idUser, true))
             Log.d("DEBUG", getSession().toString())
         } catch (e: Exception) {
             emit(Result.Error(e.message.toString()))

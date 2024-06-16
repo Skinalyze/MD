@@ -5,6 +5,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.example.skinalyze.data.repository.UserRepository
 import com.example.skinalyze.di.Injection
+import com.example.skinalyze.ui.product.ProductViewModel
 import com.example.skinalyze.ui.profile.ProfileViewModel
 
 class ViewModelFactory(private val userRepository: UserRepository) : ViewModelProvider.NewInstanceFactory() {
@@ -23,6 +24,9 @@ class ViewModelFactory(private val userRepository: UserRepository) : ViewModelPr
             }
             modelClass.isAssignableFrom(ProfileViewModel::class.java) -> {
                 ProfileViewModel(userRepository) as T
+            }
+            modelClass.isAssignableFrom(ProductViewModel::class.java) -> {
+                ProductViewModel(userRepository) as T
             }
             else -> throw IllegalArgumentException("Unknown ViewModel class: " + modelClass.name)
         }

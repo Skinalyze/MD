@@ -10,6 +10,7 @@ import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
 import com.example.skinalyze.databinding.ActivityMainBinding
+import com.example.skinalyze.adapter.SearchAdapter
 import com.example.skinalyze.viewmodel.MainViewModel
 import com.example.skinalyze.viewmodel.ViewModelFactory
 import com.google.android.material.bottomnavigation.BottomNavigationView
@@ -24,14 +25,12 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
 
         viewModel.getSession().observe(this) { user ->
-            Log.d("DEBUG", user.token)
-            Log.d("DEBUG", user.email)
 
             if (!user.isLogin) {
                 startActivity(Intent(this, OnboardingActivity::class.java))
                 finish()
             } else {
-                Log.d("DEBUG", "user is logged in with token: ${user.token}")
+                Log.d("DEBUG", "user is logged in with token: ${user.accessToken}")
             }
         }
 
