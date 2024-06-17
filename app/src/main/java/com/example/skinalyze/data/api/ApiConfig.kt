@@ -4,6 +4,7 @@ import android.annotation.SuppressLint
 import android.content.Context
 import android.util.Log
 import com.example.skinalyze.BuildConfig
+import com.example.skinalyze.data.request.RefreshRequest
 import com.example.skinalyze.pref.UserPreference
 import com.example.skinalyze.pref.dataStore
 import kotlinx.coroutines.flow.firstOrNull
@@ -19,9 +20,8 @@ import javax.net.ssl.SSLContext
 import javax.net.ssl.TrustManager
 import javax.net.ssl.X509TrustManager
 
-
-// TODO tambahin auth interceptor (token) & ganti base url
 class ApiConfig(private val context: Context) {
+
     companion object {
         fun getApiService(context: Context): ApiService {
             val loggingInterceptor = if (BuildConfig.DEBUG) {
@@ -41,7 +41,30 @@ class ApiConfig(private val context: Context) {
                 val request = chain.request().newBuilder()
                     .addHeader("Authorization", "Bearer $token")
                     .build()
-                chain.proceed(request)
+                val response = chain.proceed(request)
+
+                if (response.code == 401) {
+                    synchronized(this) {
+                        val newToken = runBlocking {
+                            refreshToken(context, userPreference)
+                        }
+                        if (newToken != null) {
+                            runBlocking {
+                                userPreference.refreshToken(newToken)
+                            }
+                            val newRequest = request.newBuilder()
+                                .removeHeader("Authorization")
+                                .addHeader("Authorization", "Bearer $newToken")
+                                .build()
+                            response.close()
+                            chain.proceed(newRequest)
+                        } else {
+                            response
+                        }
+                    }
+                } else {
+                    response
+                }
             }
 
             // NEEDS TO BE DELETED FOR PRODUCTION
@@ -79,6 +102,21 @@ class ApiConfig(private val context: Context) {
                 .client(client)
                 .build()
             return retrofit.create(ApiService::class.java)
+        }
+
+        private suspend fun refreshToken(context: Context, userPreference: UserPreference): String? {
+            return try {
+                val refreshToken = userPreference.getSession().map { it.refreshToken }.firstOrNull()
+                if (!refreshToken.isNullOrEmpty()) {
+                    val apiService = getApiService(context)
+                    val response = apiService.refreshToken(RefreshRequest(refreshToken))
+                    response.accessToken
+                } else {
+                    null
+                }
+            } catch (e: Exception) {
+                null
+            }
         }
     }
 }

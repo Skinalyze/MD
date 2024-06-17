@@ -2,15 +2,20 @@ package com.example.skinalyze.ui.profile
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import com.example.skinalyze.ResultActivity
+import com.example.skinalyze.HistoryActivity
+import com.example.skinalyze.R
 import com.example.skinalyze.SkinTypeActivity
 import com.example.skinalyze.databinding.FragmentProfileBinding
 import com.example.skinalyze.viewmodel.ViewModelFactory
+import com.example.skinalyze.data.repository.Result
+
 
 class ProfileFragment : Fragment() {
 
@@ -32,8 +37,54 @@ class ProfileFragment : Fragment() {
         _binding = FragmentProfileBinding.inflate(inflater, container, false)
         val root: View = binding.root
 
+        viewModel.getProfile(requireContext()).observe(viewLifecycleOwner) {
+        }
+
+        viewModel.profile.observe(viewLifecycleOwner) { result ->
+            result?.let {
+                when (it) {
+                    is Result.Loading -> {
+                        showLoading(true)
+                    }
+                    is Result.Success -> {
+                        showLoading(false)
+                        val profile = it.data
+                        binding.name.text = profile.nama
+                        binding.email.text = profile.email
+                        binding.age.text = profile.age.toString()
+                        if (profile.gender == 1) {
+                            binding.gender.text = getString(R.string.woman)
+                        } else {
+                            binding.gender.text = getString(R.string.man)
+                        }
+
+                        if (profile.sensitif == null && profile.skintype == null) {
+                            binding.skinType.text = getString(R.string.no_skintype)
+                        } else {
+                            if (profile.sensitif == 1) {
+                                binding.skinType.text = profile.skintype + getString(R.string.sensitive_skin)
+                            }
+                            else {
+                                binding.skinType.text = profile.skintype
+                            }
+                        }
+                    }
+                    is Result.Error -> {
+                        showLoading(false)
+                        showToast(it.error)
+                        Log.d("profile", it.error)
+                    }
+                }
+            }
+        }
+
         binding.editIcon.setOnClickListener {
             val intent = Intent(requireContext(), SkinTypeActivity::class.java)
+            startActivity(intent)
+        }
+
+        binding.nextIcon.setOnClickListener {
+            val intent = Intent(requireContext(), HistoryActivity::class.java)
             startActivity(intent)
         }
 
@@ -47,5 +98,13 @@ class ProfileFragment : Fragment() {
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
+    }
+
+    private fun showLoading(isLoading: Boolean) {
+        binding.progressBar.visibility = if (isLoading) View.VISIBLE else View.GONE
+    }
+
+    private fun showToast(message: String) {
+        Toast.makeText(requireContext(), message, Toast.LENGTH_SHORT).show()
     }
 }

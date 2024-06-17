@@ -10,19 +10,18 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.TextView
 import android.widget.Toast
 import androidx.activity.result.PickVisualMediaRequest
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
-import com.example.skinalyze.ImageClassifierHelper
+import com.example.skinalyze.Utils.ImageClassifierHelper
 import com.example.skinalyze.databinding.FragmentCameraBinding
 import androidx.activity.result.contract.ActivityResultContracts
 import com.example.skinalyze.Classifier
 import com.example.skinalyze.R
 import com.example.skinalyze.ResultActivity
-import com.example.skinalyze.getImageUri
+import com.example.skinalyze.Utils.getImageUri
 import org.tensorflow.lite.task.vision.classifier.Classifications
 
 class CameraFragment : Fragment() {
@@ -153,16 +152,26 @@ class CameraFragment : Fragment() {
 
                 override fun onResults(results: List<Classifications>?) {
                     requireActivity().runOnUiThread {
-                        results?.let { it ->
+                        results?.let {
                             Log.d("camera", it.toString())
                             resultText = it[0].categories[0].label
+                            getRecommendation()
+                            moveToResult()
                         }
                     }
                 }
             }
         )
         currentImageUri?.let { imageClassifierHelper.classifyStaticImage(it) }
-        moveToResult()
+    }
+
+    private fun getRecommendation() {
+        // TODO get user skintype
+
+        // call api
+
+        // send to result, trs bind manual?????
+
     }
 
     private fun moveToResult() {
