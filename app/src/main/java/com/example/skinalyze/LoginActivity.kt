@@ -7,17 +7,11 @@ import android.view.View
 import android.view.WindowInsets
 import android.view.WindowManager
 import android.widget.Toast
-import androidx.activity.enableEdgeToEdge
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.view.ViewCompat
-import androidx.core.view.WindowInsetsCompat
 import com.example.skinalyze.data.repository.Result
 import com.example.skinalyze.databinding.ActivityLoginBinding
-import com.example.skinalyze.databinding.ActivityRegisterBinding
-import com.example.skinalyze.pref.UserModel
 import com.example.skinalyze.viewmodel.LoginViewModel
-import com.example.skinalyze.viewmodel.RegisterViewModel
 import com.example.skinalyze.viewmodel.ViewModelFactory
 
 class LoginActivity : AppCompatActivity() {
