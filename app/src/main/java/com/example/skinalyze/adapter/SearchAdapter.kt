@@ -32,6 +32,7 @@ class SearchAdapter: ListAdapter<Product, SearchAdapter.MyViewHolder>(DIFF_CALLB
         val product = getItem(position)
         holder.bind(product)
         holder.itemView.setOnClickListener {
+            onItemClickCallback.onItemClicked(product.idSkinCare)
         }
     }
 

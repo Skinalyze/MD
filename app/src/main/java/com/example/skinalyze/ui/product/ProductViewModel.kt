@@ -26,7 +26,6 @@ class ProductViewModel(private val userRepository: UserRepository) : ViewModel()
     }
 
     fun findProduct(context: Context) {
-        val token = "Bearer " + getSession().value?.accessToken.toString()
         val client = ApiConfig.getApiService(context).search(productName)
 
         client.enqueue(object : Callback<List<Product>> {

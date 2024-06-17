@@ -2,6 +2,7 @@ package com.example.skinalyze.data.api
 
 import com.example.skinalyze.data.request.LoginRequest
 import com.example.skinalyze.data.request.RegisterRequest
+import com.example.skinalyze.data.response.DetailProductResponse
 import com.example.skinalyze.data.response.LoginResponse
 import com.example.skinalyze.data.response.Product
 import com.example.skinalyze.data.response.RegisterResponse
@@ -28,4 +29,9 @@ interface ApiService {
     fun search(
         @Query("product_name") productName: String
     ): Call<List<Product>>
+
+    @GET("search/detail")
+    fun detailProduct(
+        @Query("id_skin_care") idSkinCare: String
+    ): Call<DetailProductResponse>
 }

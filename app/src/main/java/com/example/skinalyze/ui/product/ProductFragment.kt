@@ -1,6 +1,8 @@
 package com.example.skinalyze.ui.product
 
+import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -12,8 +14,9 @@ import com.example.skinalyze.adapter.SearchAdapter
 import com.example.skinalyze.data.response.Product
 import com.example.skinalyze.databinding.FragmentProductBinding
 import com.example.skinalyze.viewmodel.ViewModelFactory
+import com.example.skinalyze.DetailActivity
 
-class ProductFragment : Fragment() {
+class  ProductFragment : Fragment() {
 
     private var _binding: FragmentProductBinding? = null
 
@@ -61,14 +64,15 @@ class ProductFragment : Fragment() {
 
     private fun setProductsData(products: List<Product>) {
         adapter.submitList(products)
-//        adapter.setOnItemClickCallback(object : SearchAdapter.OnItemClickCallback {
-//            override fun onItemClicked(productName: String) {
-//                val moveToDetailUserIntent =
-//                    Intent(this@MainActivity, DetailUserActivity::class.java)
-//                moveToDetailUserIntent.putExtra(DetailUserActivity.USERNAME, username)
-//                startActivity(moveToDetailUserIntent)
-//            }
-//        })
+        adapter.setOnItemClickCallback(object : SearchAdapter.OnItemClickCallback {
+            override fun onItemClicked(id: String) {
+                val moveToDetailUserIntent =
+                    Intent(requireContext(), DetailActivity::class.java)
+                Log.d("DEBUG Product Fragment", id)
+                moveToDetailUserIntent.putExtra(DetailActivity.ID, id)
+                startActivity(moveToDetailUserIntent)
+            }
+        })
 
     }
 
