@@ -8,7 +8,7 @@ import com.example.skinalyze.pref.dataStore
 
 object Injection {
     fun provideUserRepository(context: Context): UserRepository {
-        val api = ApiConfig.getApiService()
+        val api = ApiConfig.getApiService(context)
         val pref = UserPreference.getInstance(context.dataStore)
         return UserRepository.getInstance(api, pref)
     }
