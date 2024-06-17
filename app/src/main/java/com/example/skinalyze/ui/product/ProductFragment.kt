@@ -37,6 +37,9 @@ class  ProductFragment : Fragment() {
         _binding = FragmentProductBinding.inflate(inflater, container, false)
         val root: View = binding.root
 
+        viewModel.productName = " "
+        viewModel.findProduct(requireContext())
+
         viewModel.listProduct.observe(viewLifecycleOwner) { listProduct ->
             setProductsData(listProduct)
         }
