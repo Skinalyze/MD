@@ -1,10 +1,12 @@
 package com.example.skinalyze.data.api
 
 import com.example.skinalyze.data.request.LoginRequest
+import com.example.skinalyze.data.request.RefreshRequest
 import com.example.skinalyze.data.request.RegisterRequest
 import com.example.skinalyze.data.response.DetailProductResponse
 import com.example.skinalyze.data.response.LoginResponse
 import com.example.skinalyze.data.response.Product
+import com.example.skinalyze.data.response.ProfileResponse
 import com.example.skinalyze.data.response.RegisterResponse
 import retrofit2.Call
 import retrofit2.http.Body
@@ -25,6 +27,11 @@ interface ApiService {
         @Body requestBody: LoginRequest
     ): LoginResponse
 
+    @POST("refresh-token")
+    suspend fun refreshToken(
+        @Body requestBody: RefreshRequest
+    ): LoginResponse
+
     @GET("search")
     fun search(
         @Query("product_name") productName: String
@@ -34,4 +41,9 @@ interface ApiService {
     fun detailProduct(
         @Query("id_skin_care") idSkinCare: String
     ): Call<DetailProductResponse>
+
+    @GET("profil")
+    fun profile(): Call<ProfileResponse>
+
+
 }

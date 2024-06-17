@@ -63,5 +63,9 @@
     <string name="invalid_email">Email tidak valid</string>
     <string name="empty_image_warning">Silakan masukkan berkas gambar terlebih dahulu.</string>
     <string name="image_classifier_failed">Pengklasifikasi gambar gagal diinisialisas</string>
+    <string name="woman">Perempuan</string>
+    <string name="man">Laki-laki</string>
+    <string name="sensitive_skin">, Sensitif</string>
+    <string name="no_skintype">Anda belum menentukan jenis kulit Anda.</string>
 
 </resources>
