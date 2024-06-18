@@ -3,7 +3,6 @@ package com.example.skinalyze.ui.camera
 import android.Manifest
 import android.content.Intent
 import android.content.pm.PackageManager
-import android.graphics.Bitmap
 import android.net.Uri
 import android.os.Bundle
 import android.util.Log
@@ -18,7 +17,6 @@ import com.example.skinalyze.Utils.ImageClassifierHelper
 import com.example.skinalyze.databinding.FragmentCameraBinding
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.fragment.app.viewModels
-import com.example.skinalyze.Classifier
 import com.example.skinalyze.R
 import com.example.skinalyze.ResultActivity
 import com.example.skinalyze.Utils.getImageUri
@@ -45,9 +43,6 @@ class CameraFragment : Fragment() {
     private var resultText: String? = null
 
     private lateinit var imageClassifierHelper: ImageClassifierHelper
-
-    // Classifier for image classification
-    private lateinit var imageClassifier: Classifier
 
     private val requestPermissionLauncher =
         registerForActivityResult(
@@ -132,22 +127,6 @@ class CameraFragment : Fragment() {
     }
 
     private fun analyzeImage() {
-        // Initialize the classifier with the model from assets
-        imageClassifier = Classifier(requireContext().assets, "skin_problem.tflite", 224)
-
-        val imageView = binding.previewImageView
-        imageView.isDrawingCacheEnabled = true
-        val capturedImageBitmap = Bitmap.createBitmap(imageView.drawingCache)
-        imageView.isDrawingCacheEnabled = false
-
-        // Resize the image for classification
-        val resizedBitmap = Bitmap.createScaledBitmap(capturedImageBitmap, 224, 224, true)
-
-        // Classify the image
-        val classificationOutput = imageClassifier.classify(resizedBitmap)
-
-        Log.d("cam2", classificationOutput.toString())
-
         imageClassifierHelper = ImageClassifierHelper(
             context = requireContext(),
             classifierListener = object : ImageClassifierHelper.ClassifierListener {
