@@ -1,23 +1,23 @@
 package com.example.skinalyze
 
+import android.content.Context
 import android.content.Intent
+import android.graphics.drawable.ColorDrawable
 import android.os.Build
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import android.view.WindowInsets
 import android.view.WindowManager
 import android.widget.Toast
-import androidx.activity.enableEdgeToEdge
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.view.ViewCompat
-import androidx.core.view.WindowInsetsCompat
+import androidx.core.content.ContextCompat
+import com.example.skinalyze.data.api.ApiConfig
 import com.example.skinalyze.data.repository.Result
 import com.example.skinalyze.databinding.ActivityLoginBinding
-import com.example.skinalyze.databinding.ActivityRegisterBinding
-import com.example.skinalyze.pref.UserModel
+import com.example.skinalyze.ui.profile.ProfileViewModel
 import com.example.skinalyze.viewmodel.LoginViewModel
-import com.example.skinalyze.viewmodel.RegisterViewModel
 import com.example.skinalyze.viewmodel.ViewModelFactory
 
 class LoginActivity : AppCompatActivity() {
@@ -32,21 +32,22 @@ class LoginActivity : AppCompatActivity() {
         binding = ActivityLoginBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        setupView()
+        setupActionBar()
         setupAction()
     }
 
-    private fun setupView() {
-        @Suppress("DEPRECATION")
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
-            window.insetsController?.hide(WindowInsets.Type.statusBars())
-        } else {
-            window.setFlags(
-                WindowManager.LayoutParams.FLAG_FULLSCREEN,
-                WindowManager.LayoutParams.FLAG_FULLSCREEN
-            )
+    private fun setupActionBar() {
+        val actionBar = supportActionBar
+        actionBar?.apply {
+            val color = ContextCompat.getColor(this@LoginActivity, R.color.white)
+            setBackgroundDrawable(ColorDrawable(color))
+            title = "Masuk"
+            setDisplayHomeAsUpEnabled(true)
+
+            val upArrow =
+                ContextCompat.getDrawable(this@LoginActivity, R.drawable.baseline_arrow_back_24)
+            setHomeAsUpIndicator(upArrow)
         }
-        supportActionBar?.hide()
     }
 
     private fun setupAction() {
@@ -61,8 +62,7 @@ class LoginActivity : AppCompatActivity() {
                     is Result.Success -> {
                         showLoading(false)
                         showToast("Login success!")
-                        val intent = Intent(this@LoginActivity, MainActivity::class.java)
-                        startActivity(intent)
+                        navigateToMain()
                     }
                     is Result.Loading -> {
                         showLoading(true)
@@ -76,11 +76,23 @@ class LoginActivity : AppCompatActivity() {
         }
     }
 
+    private fun navigateToMain() {
+        Log.d("DEBUG", "navigate to main")
+        val intent = Intent(this@LoginActivity, MainActivity::class.java)
+        startActivity(intent)
+        finish()
+    }
+
     private fun showLoading(isLoading: Boolean) {
         binding.progressBar.visibility = if (isLoading) View.VISIBLE else View.GONE
     }
 
     private fun showToast(message: String) {
         Toast.makeText(this, message, Toast.LENGTH_SHORT).show()
+    }
+
+    override fun onSupportNavigateUp(): Boolean {
+        onBackPressed()
+        return true
     }
 }

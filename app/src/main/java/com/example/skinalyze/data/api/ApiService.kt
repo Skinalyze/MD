@@ -5,6 +5,7 @@ import com.example.skinalyze.data.request.LoginRequest
 import com.example.skinalyze.data.request.RecommendationRequest
 import com.example.skinalyze.data.request.RefreshRequest
 import com.example.skinalyze.data.request.RegisterRequest
+import com.example.skinalyze.data.request.SkinTypeRequest
 import com.example.skinalyze.data.response.DetailProductResponse
 import com.example.skinalyze.data.response.DetailRecommendationResponse
 import com.example.skinalyze.data.response.LoginResponse
@@ -12,11 +13,13 @@ import com.example.skinalyze.data.response.Product
 import com.example.skinalyze.data.response.ProfileResponse
 import com.example.skinalyze.data.response.Recommendation
 import com.example.skinalyze.data.response.RegisterResponse
+import com.example.skinalyze.data.response.SkinTypeResponse
 import retrofit2.Call
 import retrofit2.http.Body
 import retrofit2.http.GET
 import retrofit2.http.HTTP
 import retrofit2.http.POST
+import retrofit2.http.PUT
 import retrofit2.http.Query
 
 interface ApiService {
@@ -35,6 +38,11 @@ interface ApiService {
     suspend fun refreshToken(
         @Body requestBody: RefreshRequest
     ): LoginResponse
+
+    @PUT("skintype")
+    suspend fun skinType(
+        @Body requestBody: SkinTypeRequest
+    ): SkinTypeResponse
 
     @GET("search")
     fun search(

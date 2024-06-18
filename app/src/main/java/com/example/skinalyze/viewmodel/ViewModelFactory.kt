@@ -35,6 +35,9 @@ class ViewModelFactory(private val userRepository: UserRepository) : ViewModelPr
             modelClass.isAssignableFrom(DetailViewModel::class.java) -> {
                 DetailViewModel(userRepository) as T
             }
+            modelClass.isAssignableFrom(SkinTypeViewModel::class.java) -> {
+                SkinTypeViewModel(userRepository) as T
+            }
             modelClass.isAssignableFrom(HistoryViewModel::class.java) -> {
                 HistoryViewModel(userRepository) as T
             }

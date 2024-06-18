@@ -14,10 +14,12 @@ import com.example.skinalyze.data.request.RecommendationRequest
 import com.example.skinalyze.data.request.RegisterRequest
 import com.example.skinalyze.data.response.DetailProductResponse
 import com.example.skinalyze.data.response.DetailRecommendationResponse
+import com.example.skinalyze.data.request.SkinTypeRequest
 import com.example.skinalyze.data.response.LoginResponse
 import com.example.skinalyze.data.response.ProfileResponse
 import com.example.skinalyze.data.response.Recommendation
 import com.example.skinalyze.data.response.RegisterResponse
+import com.example.skinalyze.data.response.SkinTypeResponse
 import com.example.skinalyze.pref.UserModel
 import com.example.skinalyze.pref.UserPreference
 import kotlinx.coroutines.flow.Flow
@@ -79,6 +81,18 @@ class UserRepository private constructor(
             emit(Result.Error(e.message.toString()))
         }
     }
+
+    fun saveSkinType(skintypes: String, sensitif: String, context: Context) : LiveData<Result<SkinTypeResponse>> = liveData {
+        emit(Result.Loading)
+        try {
+            val skinTypeRequest = SkinTypeRequest(skintypes, sensitif)
+            val successResponse = ApiConfig.getApiService(context).skinType(skinTypeRequest)
+            emit(Result.Success(successResponse))
+        } catch (e: Exception) {
+            emit(Result.Error(e.message.toString()))
+        }
+    }
+
 
     fun getProfile() : LiveData<Result<ProfileResponse>> = liveData {
         _profile.value = Result.Loading
