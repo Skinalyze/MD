@@ -17,16 +17,5 @@ class CameraViewModel(private val userRepository: UserRepository
         return userRepository.getProfile()
     }
 
-    val recommendationsResult: LiveData<Result<List<DetailProductResponse>>> get() = userRepository.recommendationsResult
-    fun getRecommendation(idSkinType: Int, idSkinProblem: String): LiveData<Result<List<DetailProductResponse>>> {
-        return userRepository.getRecommendation(idSkinType, idSkinProblem)
-    }
-
-    fun postRecommendation(idSkinType: Int, idSkinProblem: String, idSkinCare: String) = userRepository.postRecommendation(idSkinType, idSkinProblem, idSkinCare)
-
-    val historyResult: LiveData<Result<List<Recommendation>>> get() = userRepository.historyResult
-
-    fun getHistory(): LiveData<Result<List<Recommendation>>> {
-        return userRepository.getHistory()
-    }
+    fun postRecommendation(idSkinType: Int, idSkinProblem: String) = userRepository.postRecommendation(idSkinType, idSkinProblem)
 }

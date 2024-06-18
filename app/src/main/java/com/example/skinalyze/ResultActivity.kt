@@ -2,19 +2,17 @@ package com.example.skinalyze
 
 import android.content.Intent
 import android.graphics.drawable.ColorDrawable
-import android.os.Build
 import android.os.Bundle
 import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
-import android.view.WindowInsets
-import android.view.WindowManager
 import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import com.bumptech.glide.Glide
+import com.example.skinalyze.Utils.labelArrayToSkinProblem
 import com.example.skinalyze.Utils.labelToSkinProblem
 import com.example.skinalyze.Utils.skinTypeTranslate
 import com.example.skinalyze.data.repository.Result
@@ -77,13 +75,7 @@ class ResultActivity : AppCompatActivity() {
                     skinType = skinType.dropLast(2)
                     binding.skinType.text = skinType
 
-                    var skinProblem = ""
-                    for (problem in detail.skinProblem) {
-                        skinProblem += problem
-                        skinProblem += ", "
-                    }
-                    skinProblem = skinProblem.dropLast(2)
-                    binding.skinProblem.text = labelToSkinProblem(skinProblem)
+                    binding.skinProblem.text = labelArrayToSkinProblem(detail.skinProblem)
 
                     val nameTextViews = arrayOf(
                         binding.tvItemName1, binding.tvItemName2, binding.tvItemName3,
@@ -156,7 +148,7 @@ class ResultActivity : AppCompatActivity() {
 //                    } else {
 //                        onBackPressed()
 //                    }
-                    finish()
+//                    finish()
                 }
 
                 is Result.Error -> {

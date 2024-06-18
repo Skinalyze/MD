@@ -6,6 +6,7 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.example.skinalyze.R
+import com.example.skinalyze.Utils.labelArrayToSkinProblem
 import com.example.skinalyze.Utils.labelToSkinProblem
 import com.example.skinalyze.Utils.skinTypeTranslate
 import com.example.skinalyze.data.response.Recommendation
@@ -38,7 +39,7 @@ class RecommendationAdapter : ListAdapter<Recommendation, RecommendationAdapter.
     class MyViewHolder(private val binding: ItemRowHistoryBinding) : RecyclerView.ViewHolder(binding.root) {
 
         fun bind(recommendation: Recommendation){
-            binding.tvProblems.text = labelToSkinProblem(recommendation.skinProblem)
+            binding.tvProblems.text = labelArrayToSkinProblem(recommendation.skinProblem.split(", "))
             if (recommendation.isSensitive == 1) {
                 binding.tvSkinType.text = skinTypeTranslate(recommendation.skinType) + ", Sensitif"
             }

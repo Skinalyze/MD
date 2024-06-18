@@ -55,14 +55,14 @@ fun skinProblemToLabel(skinProblem: String): String {
     )
     return mappings[skinProblem] ?: ""
 }
+fun labelArrayToSkinProblem(label: List<String>) : String{
+    return when {
+        "Acne-Free" in label -> "Jerawat"
+        "Pore-Care" in label -> "Komedo"
+        "Black-Spot" in label -> "Flek Hitam"
+        "Skin-Barrier" in label -> "Normal"
+        "Hydrating" in label -> "Keriput"
+        else -> ""
+    }
 
-fun labelToSkinProblem(label: String) : String{
-    val mappings = mapOf(
-        "Acne-Free, Balancing, Pore-Care, Soothing" to "Jerawat",
-        "Balancing, Oil-Control, Pore-Care" to "Komedo",
-        "Anti-Aging, Black-Spot, Brightening" to "Flek Hitam",
-        "Balancing, Moisturizing, Skin-Barrier" to "Normal",
-        "Anti-Aging, Hydrating, Moisturizing" to "Keriput"
-    )
-    return mappings[label] ?: ""
 }

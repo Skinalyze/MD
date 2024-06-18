@@ -120,7 +120,6 @@ class CameraFragment : Fragment() {
 
     private fun showImage() {
         currentImageUri?.let {
-            Log.d("Image URI", "showImage: $it")
             binding.previewImageView.setImageURI(it)
         }
     }
@@ -148,6 +147,7 @@ class CameraFragment : Fragment() {
             }
         )
         currentImageUri?.let { imageClassifierHelper.classifyStaticImage(it) }
+        showLoading(true)
     }
 
     private fun getUserInfo(idSkinProblem: String) {
@@ -165,7 +165,7 @@ class CameraFragment : Fragment() {
                         val idSkintype = skintype?.let { it1 -> skinTypeMapping(it1.trim()) }
 
                         if (idSkintype != null) {
-                            getRecommendations(idSkintype, idSkinProblem)
+                            postRecommendation(idSkintype, idSkinProblem)
                         }
                     }
                     is Result.Error -> {
@@ -177,39 +177,15 @@ class CameraFragment : Fragment() {
         }
     }
 
-    private fun getRecommendations(idSkintype: Int, idSkinProblem: String) {
-        viewModel.getRecommendation(idSkintype, idSkinProblem).observe(viewLifecycleOwner) {
-        }
-
-        viewModel.recommendationsResult.observe(viewLifecycleOwner) { result ->
-            result?.let {
-                when (it) {
-                    is Result.Loading -> {
-                        showLoading(true)
-                    }
-                    is Result.Success -> {
-                        var idSkincare = ""
-                        for (product in it.data) {
-                            idSkincare += product.id.toString()
-                            idSkincare += ","
-                        }
-                        idSkincare = idSkincare.dropLast(1)
-                        postRecommendation(idSkintype, idSkinProblem, idSkincare)
-                    }
-                    is Result.Error -> {
-                        showToast(it.error)
-                        Log.d("profile", it.error)
-                    }
-                }
-            }
-        }
-    }
-
-    private fun postRecommendation(idSkintype: Int, idSkinProblem: String, idSkincare: String) {
-        viewModel.postRecommendation(idSkintype, idSkinProblem, idSkincare).observe(viewLifecycleOwner) { result ->
+    private fun postRecommendation(idSkintype: Int, idSkinProblem: String) {
+        viewModel.postRecommendation(idSkintype, idSkinProblem).observe(viewLifecycleOwner) { result ->
             when(result) {
                 is Result.Success -> {
-                    moveToResult()
+                    Log.d("resultnya apa", result.data.toString())
+                    val intent = Intent(requireContext(), ResultActivity::class.java)
+                    intent.putExtra(ResultActivity.ID_RESULT, result.data.id_rekomendasi.toString())
+//                    intent.putExtra(ResultActivity.PREVIOUS_ACTIVITY, "camera")
+                    startActivity(intent)
                 }
                 is Result.Loading -> {
                     showLoading(true)
@@ -220,34 +196,6 @@ class CameraFragment : Fragment() {
 
             }
         }
-    }
-
-    private fun moveToResult() {
-        viewModel.getHistory().observe(this) {
-        }
-
-        viewModel.historyResult.observe(this) { history ->
-            when (history) {
-                is Result.Loading -> {
-                showLoading(true)
-                }
-                is Result.Success -> {
-                    val sortedList = history.data.sortedByDescending { recommendation ->
-                        val originalFormat = SimpleDateFormat("EEE MMM dd HH:mm:ss zzz yyyy", Locale.ENGLISH)
-                        originalFormat.parse(recommendation.timestamp.toString())?.time ?: 0L
-                    }
-                    val id = sortedList[0].id.toString()
-                    val intent = Intent(requireContext(), ResultActivity::class.java)
-                    intent.putExtra(ResultActivity.ID_RESULT, id)
-//                    intent.putExtra(ResultActivity.PREVIOUS_ACTIVITY, "camera")
-                    startActivity(intent)
-                }
-                is Result.Error -> {
-                    showToast(history.error)
-                }
-            }
-        }
-
     }
 
     private fun showLoading(isLoading: Boolean) {

@@ -12,10 +12,10 @@ import com.example.skinalyze.data.request.DeleteRequest
 import com.example.skinalyze.data.request.LoginRequest
 import com.example.skinalyze.data.request.RecommendationRequest
 import com.example.skinalyze.data.request.RegisterRequest
-import com.example.skinalyze.data.response.DetailProductResponse
 import com.example.skinalyze.data.response.DetailRecommendationResponse
 import com.example.skinalyze.data.request.SkinTypeRequest
 import com.example.skinalyze.data.response.LoginResponse
+import com.example.skinalyze.data.response.PostRecommendationResponse
 import com.example.skinalyze.data.response.ProfileResponse
 import com.example.skinalyze.data.response.Recommendation
 import com.example.skinalyze.data.response.RegisterResponse
@@ -43,9 +43,6 @@ class UserRepository private constructor(
 
     private val _deleteRecommendation = MutableLiveData<Result<RegisterResponse>>()
     val deleteRecommendationResult: LiveData<Result<RegisterResponse>> get() = _deleteRecommendation
-
-    private val _recommendations = MutableLiveData<Result<List<DetailProductResponse>>>()
-    val recommendationsResult: LiveData<Result<List<DetailProductResponse>>> get() = _recommendations
 
     suspend fun saveSession(user: UserModel) {
         userPreference.saveSession(user)
@@ -115,31 +112,10 @@ class UserRepository private constructor(
         })
     }
 
-    fun getRecommendation(idSkinType: Int, idSkinProblem: String) : LiveData<Result<List<DetailProductResponse>>> = liveData {
-        _recommendations.value = Result.Loading
-        val client = apiService.getRecommendation(idSkinType, idSkinProblem)
-        client.enqueue(object : Callback<List<DetailProductResponse>> {
-            override fun onResponse(
-                call: Call<List<DetailProductResponse>>, response: Response<List<DetailProductResponse>>
-            ) {
-                if (response.isSuccessful) {
-                    response.body()?.let {
-                        _recommendations.value = Result.Success(it)
-                    }
-                } else {
-                    _recommendations.value = Result.Error(response.message())
-                }
-            }
-            override fun onFailure(call: Call<List<DetailProductResponse>>, t: Throwable) {
-                Log.e(ContentValues.TAG, "onFailure: ${t.message}")
-            }
-        })
-    }
-
-    fun postRecommendation(idSkinType: Int, idSkinProblem: String, idSkinCare: String) : LiveData<Result<RegisterResponse>> = liveData {
+    fun postRecommendation(idSkinType: Int, idSkinProblem: String) : LiveData<Result<PostRecommendationResponse>> = liveData {
         emit(Result.Loading)
         try {
-            val recommendationRequest = RecommendationRequest(idSkinType, idSkinProblem, idSkinCare)
+            val recommendationRequest = RecommendationRequest(idSkinType, idSkinProblem)
             val successResponse = apiService.postRecommendation(recommendationRequest)
             emit(Result.Success(successResponse))
         } catch (e: Exception) {
@@ -161,10 +137,10 @@ class UserRepository private constructor(
                 } else {
                     when (response.code()) {
                         404 -> {
-                            _recommendations.postValue(Result.Success(emptyList()))
+                            _history.postValue(Result.Success(emptyList()))
                         }
                         else -> {
-                            _recommendations.postValue(Result.Error("An error occurred: ${response.message()}"))
+                            _history.postValue(Result.Error("An error occurred: ${response.message()}"))
                         }
                     }
                 }

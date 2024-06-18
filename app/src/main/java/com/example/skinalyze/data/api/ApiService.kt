@@ -9,6 +9,7 @@ import com.example.skinalyze.data.request.SkinTypeRequest
 import com.example.skinalyze.data.response.DetailProductResponse
 import com.example.skinalyze.data.response.DetailRecommendationResponse
 import com.example.skinalyze.data.response.LoginResponse
+import com.example.skinalyze.data.response.PostRecommendationResponse
 import com.example.skinalyze.data.response.Product
 import com.example.skinalyze.data.response.ProfileResponse
 import com.example.skinalyze.data.response.Recommendation
@@ -57,16 +58,10 @@ interface ApiService {
     @GET("profil")
     fun profile(): Call<ProfileResponse>
 
-    @GET("recommendation")
-    fun getRecommendation(
-        @Query("id_tipe_skin_type") idSkinType: Int,
-        @Query("id_skin_problem") idSkinCare: String
-    ): Call<List<DetailProductResponse>>
-
     @POST("postRecommendation")
     suspend fun postRecommendation(
         @Body requestBody: RecommendationRequest
-    ): RegisterResponse
+    ): PostRecommendationResponse
 
     @GET("history")
     fun getHistory(): Call<List<Recommendation>>
