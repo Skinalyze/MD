@@ -13,13 +13,13 @@
     <string name="product_problem">Jerawat, Kerutan, Kusam</string>
     <string name="skin_type_label">Jenis kulit</string>
     <string name="product_skin_type">Kering, Sensitif</string>
-    <string name="skin_type_form_header">Tentukan Jenis Kulit Anda untuk Rekomendasi Perawatan Terbaik</string>
-    <string name="skin_type_question">Apa jenis kulit kamu?</string>
+    <string name="skin_type_form_header">Tentukan jenis kulit Anda untuk rekomendasi perawatan terbaik</string>
+    <string name="skin_type_question">Apa jenis kulit Anda?</string>
     <string name="normal">Normal</string>
     <string name="oily">Berminyak</string>
     <string name="dry">Kering</string>
     <string name="combination">Kombinasi</string>
-    <string name="sensitive_skin_question">Apakah kulit kamu sensitif?</string>
+    <string name="sensitive_skin_question">Apakah kulit Anda sensitif?</string>
     <string name="sensitive">Ya</string>
     <string name="not_sensitive">Tidak</string>
     <string name="onboarding_title_1">Analisis masalah kulit dengan kecerdasan buatan</string>
@@ -67,5 +67,6 @@
     <string name="man">Laki-laki</string>
     <string name="sensitive_skin">, Sensitif</string>
     <string name="no_skintype">Anda belum menentukan jenis kulit Anda.</string>
+    <string name="simpan">SIMPAN</string>
 
 </resources>
