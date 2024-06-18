@@ -4,6 +4,9 @@ import com.google.gson.annotations.SerializedName
 
 data class DetailProductResponse(
 
+	@field:SerializedName("id_skin_care")
+	val id: Int? = null,
+
 	@field:SerializedName("product_type")
 	val productType: String? = null,
 

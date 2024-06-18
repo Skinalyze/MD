@@ -55,10 +55,10 @@
     <string name="hasil_analisis">Hasil Analisis</string>
     <string name="permasalahan_kulit">Permasalahan Kulit</string>
     <string name="produk_skincare_yang_cocok_untuk_anda">Produk skincare yang cocok untuk Anda:</string>
-    <string name="facial_wash">FACIAL WASH</string>
+    <string name="facial_wash">PEMBERSIH WAJAH</string>
     <string name="toner">TONER</string>
-    <string name="moisturizer">MOISTURIZER</string>
-    <string name="sunscreen">SUNSCREEN</string>
+    <string name="moisturizer">PELEMBAB</string>
+    <string name="sunscreen">PELINDUNG MATAHARI</string>
     <string name="serum">SERUM</string>
     <string name="invalid_email">Email tidak valid</string>
     <string name="empty_image_warning">Silakan masukkan berkas gambar terlebih dahulu.</string>
@@ -67,6 +67,7 @@
     <string name="man">Laki-laki</string>
     <string name="sensitive_skin">, Sensitif</string>
     <string name="no_skintype">Anda belum menentukan jenis kulit Anda.</string>
+    <string name="no_history">Anda belum punya riwayat</string>
     <string name="simpan">SIMPAN</string>
-
+    <string name="delete_history">hapus riwayat</string>
 </resources>

@@ -1,5 +1,6 @@
 package com.example.skinalyze.Utils
 
+
 fun skinProblemMapping(skinProblem: String): Set<String> {
     val mappings = mapOf(
         "Acne-Free" to setOf("Jerawat"),
@@ -19,4 +20,49 @@ fun skinProblemMapping(skinProblem: String): Set<String> {
     )
 
     return mappings[skinProblem] ?: emptySet()
+}
+
+fun skinTypeMapping(skinProblem: String): Int {
+    val mappings = mapOf(
+        "Combination" to 1,
+        "Dry" to 2,
+        "Normal" to 3,
+        "Oily" to 4
+    )
+
+    return mappings[skinProblem] ?: 0
+}
+
+fun skinTypeTranslate(skinProblem: String): String {
+    val mappings = mapOf(
+        "Combination" to "Kombinasi",
+        "Dry" to "Kering",
+        "Normal" to "Normal",
+        "Oily" to "Berminyak",
+        "Sensitif" to "Sensitif"
+    )
+
+    return mappings[skinProblem] ?: ""
+}
+
+fun skinProblemToLabel(skinProblem: String): String {
+    val mappings = mapOf(
+        "acnes" to "1,3,10,13",
+        "blackheads" to "3,9,10",
+        "darkspots" to "2,4,5",
+        "normal" to "3,7,12",
+        "wrinkles" to "2,6,7"
+    )
+    return mappings[skinProblem] ?: ""
+}
+fun labelArrayToSkinProblem(label: List<String>) : String{
+    return when {
+        "Acne-Free" in label -> "Jerawat"
+        "Pore-Care" in label -> "Komedo"
+        "Black-Spot" in label -> "Flek Hitam"
+        "Skin-Barrier" in label -> "Normal"
+        "Hydrating" in label -> "Keriput"
+        else -> ""
+    }
+
 }

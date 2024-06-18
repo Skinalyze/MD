@@ -3,16 +3,12 @@ package com.example.skinalyze.data.response
 import com.google.gson.annotations.SerializedName
 import java.util.Date
 
-data class HistoryResponse(
-    val recommendations: List<Recommendation>
-)
-
 data class Recommendation(
     @field: SerializedName("id_rekomendasi")
     val id: Int,
 
     @field: SerializedName("sensitif")
-    val isSensitive: Boolean?,
+    val isSensitive: Int,
 
     @field: SerializedName("skin_type")
     val skinType: String,

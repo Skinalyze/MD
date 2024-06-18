@@ -1,13 +1,21 @@
 package com.example.skinalyze.ui.camera
 
 import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import com.example.skinalyze.data.repository.Result
+import com.example.skinalyze.data.repository.UserRepository
+import com.example.skinalyze.data.response.DetailProductResponse
+import com.example.skinalyze.data.response.ProfileResponse
+import com.example.skinalyze.data.response.Recommendation
 
-class CameraViewModel : ViewModel() {
+class CameraViewModel(private val userRepository: UserRepository
+) : ViewModel() {
 
-    private val _text = MutableLiveData<String>().apply {
-        value = "This is dashboard Fragment"
+    val profileResult: LiveData<Result<ProfileResponse>> get() = userRepository.profileResult
+
+    fun getProfile(): LiveData<Result<ProfileResponse>>{
+        return userRepository.getProfile()
     }
-    val text: LiveData<String> = _text
+
+    fun postRecommendation(idSkinType: Int, idSkinProblem: String) = userRepository.postRecommendation(idSkinType, idSkinProblem)
 }

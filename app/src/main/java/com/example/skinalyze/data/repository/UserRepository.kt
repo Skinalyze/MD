@@ -8,12 +8,16 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.liveData
 import com.example.skinalyze.data.api.ApiConfig
 import com.example.skinalyze.data.api.ApiService
+import com.example.skinalyze.data.request.DeleteRequest
 import com.example.skinalyze.data.request.LoginRequest
+import com.example.skinalyze.data.request.RecommendationRequest
 import com.example.skinalyze.data.request.RegisterRequest
+import com.example.skinalyze.data.response.DetailRecommendationResponse
 import com.example.skinalyze.data.request.SkinTypeRequest
 import com.example.skinalyze.data.response.LoginResponse
-import com.example.skinalyze.data.response.Product
+import com.example.skinalyze.data.response.PostRecommendationResponse
 import com.example.skinalyze.data.response.ProfileResponse
+import com.example.skinalyze.data.response.Recommendation
 import com.example.skinalyze.data.response.RegisterResponse
 import com.example.skinalyze.data.response.SkinTypeResponse
 import com.example.skinalyze.pref.UserModel
@@ -29,7 +33,16 @@ class UserRepository private constructor(
 ) {
 
     private val _profile = MutableLiveData<Result<ProfileResponse>>()
-    val profile: LiveData<Result<ProfileResponse>> get() = _profile
+    val profileResult: LiveData<Result<ProfileResponse>> get() = _profile
+
+    private val _history = MutableLiveData<Result<List<Recommendation>>>()
+    val historyResult: LiveData<Result<List<Recommendation>>> get() = _history
+
+    private val _detailRecommendation = MutableLiveData<Result<DetailRecommendationResponse>>()
+    val detailRecommendationResult: LiveData<Result<DetailRecommendationResponse>> get() = _detailRecommendation
+
+    private val _deleteRecommendation = MutableLiveData<Result<RegisterResponse>>()
+    val deleteRecommendationResult: LiveData<Result<RegisterResponse>> get() = _deleteRecommendation
 
     suspend fun saveSession(user: UserModel) {
         userPreference.saveSession(user)
@@ -48,7 +61,6 @@ class UserRepository private constructor(
         } catch (e: Exception) {
             emit(Result.Error(e.message.toString()))
         }
-
     }
 
     fun login(email: String, password:String) : LiveData<Result<LoginResponse>> = liveData {
@@ -78,9 +90,10 @@ class UserRepository private constructor(
         }
     }
 
-    fun getProfile(context: Context) : LiveData<Result<ProfileResponse>> = liveData {
+
+    fun getProfile() : LiveData<Result<ProfileResponse>> = liveData {
         _profile.value = Result.Loading
-        val client = ApiConfig.getApiService(context).profile()
+        val client = apiService.profile()
         client.enqueue(object : Callback<ProfileResponse> {
             override fun onResponse(
                 call: Call<ProfileResponse>, response: Response<ProfileResponse>
@@ -93,32 +106,94 @@ class UserRepository private constructor(
                     Log.e(ContentValues.TAG, "onFailure: ${response.message()}")
                 }
             }
-
             override fun onFailure(call: Call<ProfileResponse>, t: Throwable) {
                 Log.e(ContentValues.TAG, "onFailure: ${t.message}")
             }
-
         })
-//        client.enqueue(object : Callback<ProfileResponse> {
-//            override fun onResponse(call: Call<ProfileResponse>, response: Response<ProfileResponse>) {
-//                if (response.isSuccessful) {
-//                    response.body()?.let {
-//                        _profile.value = Result.Success(it)
-//                    } ?: run {
-//                        Log.e(ContentValues.TAG, "onFailure: ${response.message()}")
-//                    }
-//                } else {
-//                    Log.e(ContentValues.TAG, "onFailure: ${response.message()}")
-//                }
-//            }
-//
-//            override fun onFailure(call: Call<ProfileResponse>, t: Throwable) {
-//                Log.e(ContentValues.TAG, "onFailure: ${t.message}")
-//            }
-//        })
     }
 
+    fun postRecommendation(idSkinType: Int, idSkinProblem: String) : LiveData<Result<PostRecommendationResponse>> = liveData {
+        emit(Result.Loading)
+        try {
+            val recommendationRequest = RecommendationRequest(idSkinType, idSkinProblem)
+            val successResponse = apiService.postRecommendation(recommendationRequest)
+            emit(Result.Success(successResponse))
+        } catch (e: Exception) {
+            emit(Result.Error(e.message.toString()))
+        }
+    }
 
+    fun getHistory() : LiveData<Result<List<Recommendation>>> = liveData {
+        _history.postValue(Result.Loading)
+        val client = apiService.getHistory()
+        client.enqueue(object : Callback<List<Recommendation>> {
+            override fun onResponse(
+                call: Call<List<Recommendation>>, response: Response<List<Recommendation>>
+            ) {
+                if (response.isSuccessful) {
+                    response.body()?.let {
+                        _history.postValue(Result.Success(it))
+                    }
+                } else {
+                    when (response.code()) {
+                        404 -> {
+                            _history.postValue(Result.Success(emptyList()))
+                        }
+                        else -> {
+                            _history.postValue(Result.Error("An error occurred: ${response.message()}"))
+                        }
+                    }
+                }
+            }
+            override fun onFailure(call: Call<List<Recommendation>>, t: Throwable) {
+                Log.e(ContentValues.TAG, "onFailure: ${t.message}")
+            }
+        })
+    }
+
+    fun getDetailRecommendation(id: String) : LiveData<Result<DetailRecommendationResponse>> = liveData {
+        _detailRecommendation.value = Result.Loading
+        val client = apiService.detailRecommendation(id)
+        client.enqueue(object : Callback<DetailRecommendationResponse> {
+            override fun onResponse(
+                call: Call<DetailRecommendationResponse>, response: Response<DetailRecommendationResponse>
+            ) {
+                if (response.isSuccessful) {
+                    response.body()?.let {
+                        _detailRecommendation.value = Result.Success(it)
+                    }
+                } else {
+                    Log.e(ContentValues.TAG, "onFailure: ${response.message()}")
+                }
+            }
+            override fun onFailure(call: Call<DetailRecommendationResponse>, t: Throwable) {
+                Log.e(ContentValues.TAG, "onFailure: ${t.message}")
+            }
+        })
+    }
+
+    fun deleteRecommendation(id: Int) : LiveData<Result<RegisterResponse>> = liveData {
+        _deleteRecommendation.value = Result.Loading
+
+        val deleteRequest = DeleteRequest(id)
+        val client = apiService.deleteRecommendation(deleteRequest)
+        client.enqueue(object : Callback<RegisterResponse> {
+            override fun onResponse(
+                call: Call<RegisterResponse>, response: Response<RegisterResponse>
+            ) {
+                if (response.isSuccessful) {
+                    response.body()?.let {
+                        _deleteRecommendation.value = Result.Success(it)
+                    }
+                } else {
+                    Log.e(ContentValues.TAG, "onFailure: ${response.message()}")
+                }
+            }
+            override fun onFailure(call: Call<RegisterResponse>, t: Throwable) {
+                Log.e(ContentValues.TAG, "onFailure: ${t.message}")
+            }
+        })
+    }
 
     suspend fun logout() {
         userPreference.logout()

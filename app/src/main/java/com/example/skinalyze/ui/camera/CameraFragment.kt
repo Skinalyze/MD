@@ -3,7 +3,6 @@ package com.example.skinalyze.ui.camera
 import android.Manifest
 import android.content.Intent
 import android.content.pm.PackageManager
-import android.graphics.Bitmap
 import android.net.Uri
 import android.os.Bundle
 import android.util.Log
@@ -14,31 +13,35 @@ import android.widget.Toast
 import androidx.activity.result.PickVisualMediaRequest
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.ViewModelProvider
 import com.example.skinalyze.Utils.ImageClassifierHelper
 import com.example.skinalyze.databinding.FragmentCameraBinding
 import androidx.activity.result.contract.ActivityResultContracts
-import com.example.skinalyze.Classifier
+import androidx.fragment.app.viewModels
 import com.example.skinalyze.R
 import com.example.skinalyze.ResultActivity
 import com.example.skinalyze.Utils.getImageUri
+import com.example.skinalyze.Utils.skinProblemToLabel
+import com.example.skinalyze.Utils.skinTypeMapping
+import com.example.skinalyze.data.repository.Result
+import com.example.skinalyze.viewmodel.ViewModelFactory
 import org.tensorflow.lite.task.vision.classifier.Classifications
+import java.text.SimpleDateFormat
+import java.util.Locale
 
 class CameraFragment : Fragment() {
 
     private var _binding: FragmentCameraBinding? = null
+    private val viewModel by viewModels<CameraViewModel> {
+        ViewModelFactory.getInstance(requireContext())
+    }
 
     // This property is only valid between onCreateView and
     // onDestroyView.
     private val binding get() = _binding!!
 
     private var currentImageUri: Uri? = null
-    private var resultText: String? = null
 
     private lateinit var imageClassifierHelper: ImageClassifierHelper
-
-    // Classifier for image classification
-    private lateinit var imageClassifier: Classifier
 
     private val requestPermissionLauncher =
         registerForActivityResult(
@@ -62,8 +65,6 @@ class CameraFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        val cameraViewModel =
-            ViewModelProvider(this).get(CameraViewModel::class.java)
 
         _binding = FragmentCameraBinding.inflate(inflater, container, false)
         val root: View = binding.root
@@ -119,28 +120,11 @@ class CameraFragment : Fragment() {
 
     private fun showImage() {
         currentImageUri?.let {
-            Log.d("Image URI", "showImage: $it")
             binding.previewImageView.setImageURI(it)
         }
     }
 
     private fun analyzeImage() {
-        // Initialize the classifier with the model from assets
-        imageClassifier = Classifier(requireContext().assets, "skin_problem.tflite", 224)
-
-        val imageView = binding.previewImageView
-        imageView.isDrawingCacheEnabled = true
-        val capturedImageBitmap = Bitmap.createBitmap(imageView.drawingCache)
-        imageView.isDrawingCacheEnabled = false
-
-        // Resize the image for classification
-        val resizedBitmap = Bitmap.createScaledBitmap(capturedImageBitmap, 224, 224, true)
-
-        // Classify the image
-        val classificationOutput = imageClassifier.classify(resizedBitmap)
-
-        Log.d("cam2", classificationOutput.toString())
-
         imageClassifierHelper = ImageClassifierHelper(
             context = requireContext(),
             classifierListener = object : ImageClassifierHelper.ClassifierListener {
@@ -154,30 +138,68 @@ class CameraFragment : Fragment() {
                     requireActivity().runOnUiThread {
                         results?.let {
                             Log.d("camera", it.toString())
-                            resultText = it[0].categories[0].label
-                            getRecommendation()
-                            moveToResult()
+                            val skinProblem = it[0].categories[0].label
+                            val idSkinProblem = skinProblemToLabel(skinProblem.trim())
+                            getUserInfo(idSkinProblem)
                         }
                     }
                 }
             }
         )
         currentImageUri?.let { imageClassifierHelper.classifyStaticImage(it) }
+        showLoading(true)
     }
 
-    private fun getRecommendation() {
-        // TODO get user skintype
+    private fun getUserInfo(idSkinProblem: String) {
+        viewModel.getProfile().observe(viewLifecycleOwner) {
+        }
 
-        // call api
+        viewModel.profileResult.observe(viewLifecycleOwner) { result ->
+            result?.let {
+                when (it) {
+                    is Result.Loading -> {
+                        showLoading(true)
+                    }
+                    is Result.Success -> {
+                        val skintype = it.data.skintype
+                        val idSkintype = skintype?.let { it1 -> skinTypeMapping(it1.trim()) }
 
-        // send to result, trs bind manual?????
-
+                        if (idSkintype != null) {
+                            postRecommendation(idSkintype, idSkinProblem)
+                        }
+                    }
+                    is Result.Error -> {
+                        showToast(it.error)
+                        Log.d("profile", it.error)
+                    }
+                }
+            }
+        }
     }
 
-    private fun moveToResult() {
-        val intent = Intent(requireContext(), ResultActivity::class.java)
-        intent.putExtra(ResultActivity.EXTRA_RESULT, resultText)
-        startActivity(intent)
+    private fun postRecommendation(idSkintype: Int, idSkinProblem: String) {
+        viewModel.postRecommendation(idSkintype, idSkinProblem).observe(viewLifecycleOwner) { result ->
+            when(result) {
+                is Result.Success -> {
+                    Log.d("resultnya apa", result.data.toString())
+                    val intent = Intent(requireContext(), ResultActivity::class.java)
+                    intent.putExtra(ResultActivity.ID_RESULT, result.data.id_rekomendasi.toString())
+//                    intent.putExtra(ResultActivity.PREVIOUS_ACTIVITY, "camera")
+                    startActivity(intent)
+                }
+                is Result.Loading -> {
+                    showLoading(true)
+                }
+                is Result.Error -> {
+                    showToast(result.error)
+                }
+
+            }
+        }
+    }
+
+    private fun showLoading(isLoading: Boolean) {
+        binding.progressBar.visibility = if (isLoading) View.VISIBLE else View.GONE
     }
 
     private fun showToast(message: String) {

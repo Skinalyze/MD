@@ -14,4 +14,7 @@ data class Product(
 
     @field:SerializedName("foto")
     val foto: String,
+
+    @field:SerializedName("picture_src")
+    val img: String,
 )
