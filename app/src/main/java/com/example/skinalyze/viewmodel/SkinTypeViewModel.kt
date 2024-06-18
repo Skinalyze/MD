@@ -5,5 +5,5 @@ import androidx.lifecycle.ViewModel
 import com.example.skinalyze.data.repository.UserRepository
 
 class SkinTypeViewModel(private val userRepository: UserRepository) : ViewModel() {
-    fun saveSkinType(skintype: Int, sensitif: Int, context: Context) = userRepository.saveSkinType(skintype, sensitif, context)
+    fun saveSkinType(skintype: String, sensitif: String, context: Context) = userRepository.saveSkinType(skintype, sensitif, context)
 }

@@ -60,23 +60,23 @@ class SkinTypeActivity : AppCompatActivity() {
             val radioSensitiveSkin: RadioGroup = findViewById(R.id.radio_sensitive_skin)
 
             val selectedSkinTypeId = radioSkinType.checkedRadioButtonId
-            var skinTypeId = -1
+            var skinTypeId = "-1"
             if (selectedSkinTypeId != -1) {
                 val selectedSkinType: RadioButton = findViewById(selectedSkinTypeId)
                 val skinType = selectedSkinType.text.toString()
                 skinTypeId = mapper.getIdFromSkinTypeLabel(skinType)!!
                 Log.d("Final Skin Type", skinType)
-                Log.d("Final Skin Type ID", skinTypeId.toString())
+                Log.d("Final Skin Type ID", skinTypeId)
             }
 
             val selectedSensitiveSkinId = radioSensitiveSkin.checkedRadioButtonId
-            var sensitiveSkinId = -1
+            var sensitiveSkinId = "-1"
             if (selectedSensitiveSkinId != -1) {
                 val selectedSensitiveSkin: RadioButton = findViewById(selectedSensitiveSkinId)
                 val sensitiveSkin = selectedSensitiveSkin.text.toString()
                 sensitiveSkinId = mapper.getIdFromSensitiveLabel(sensitiveSkin)!!
                 Log.d("Final Sensitive Skin", sensitiveSkin)
-                Log.d("Final Sensitive Skin ID", sensitiveSkinId.toString())
+                Log.d("Final Sensitive Skin ID", sensitiveSkinId)
             }
 
             viewModel.saveSkinType(skinTypeId, sensitiveSkinId, this).observe(this@SkinTypeActivity) { result ->

@@ -1,6 +1,7 @@
 package com.example.skinalyze
 
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import androidx.activity.enableEdgeToEdge
 import androidx.activity.viewModels
@@ -38,10 +39,14 @@ class DetailActivity : AppCompatActivity() {
     }
 
     private fun setDetailProductData(product: DetailProductResponse?) {
-        var problems = product?.notableEffects?.get(0)?.let { skinProblemMapping(it) }
-        for (i in 1 until product?.notableEffects?.size!!) {
-            problems += ", " + product.notableEffects[i]?.let { skinProblemMapping(it) }
+        val listProblem = mutableSetOf<String>()
+        for (i in 0 until product?.notableEffects?.size!!) {
+            product.notableEffects[i]?.let { skinProblemMapping(it) }
+                ?.let { listProblem.addAll(it) }
         }
+        val problems = listProblem.joinToString()
+
+        Log.d("DEBUG PROBLEMS", problems)
 
         var skinTypes = product.skinType?.get(0)
         for (i in 1 until product.skinType?.size!!) {

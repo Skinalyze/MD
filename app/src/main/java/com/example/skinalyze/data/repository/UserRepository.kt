@@ -67,7 +67,7 @@ class UserRepository private constructor(
         }
     }
 
-    fun saveSkinType(skintypes: Int, sensitif: Int, context: Context) : LiveData<Result<SkinTypeResponse>> = liveData {
+    fun saveSkinType(skintypes: String, sensitif: String, context: Context) : LiveData<Result<SkinTypeResponse>> = liveData {
         emit(Result.Loading)
         try {
             val skinTypeRequest = SkinTypeRequest(skintypes, sensitif)

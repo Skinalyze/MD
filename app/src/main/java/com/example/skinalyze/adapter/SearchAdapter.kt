@@ -15,7 +15,7 @@ class SearchAdapter: ListAdapter<Product, SearchAdapter.MyViewHolder>(DIFF_CALLB
     class MyViewHolder(private val binding: ItemRowProductBinding) :
         RecyclerView.ViewHolder(binding.root) {
         fun bind(product: Product) {
-            Glide.with(binding.cardView.context).load(product.foto).into(binding.imgItemPhoto)
+            Glide.with(binding.cardView.context).load(product.foto).centerCrop().into(binding.imgItemPhoto)
             binding.tvItemBrand.text = product.brand
             binding.tvItemName.text = product.productName
         }
