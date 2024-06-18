@@ -10,10 +10,12 @@ import com.example.skinalyze.data.api.ApiConfig
 import com.example.skinalyze.data.api.ApiService
 import com.example.skinalyze.data.request.LoginRequest
 import com.example.skinalyze.data.request.RegisterRequest
+import com.example.skinalyze.data.request.SkinTypeRequest
 import com.example.skinalyze.data.response.LoginResponse
 import com.example.skinalyze.data.response.Product
 import com.example.skinalyze.data.response.ProfileResponse
 import com.example.skinalyze.data.response.RegisterResponse
+import com.example.skinalyze.data.response.SkinTypeResponse
 import com.example.skinalyze.pref.UserModel
 import com.example.skinalyze.pref.UserPreference
 import kotlinx.coroutines.flow.Flow
@@ -60,6 +62,17 @@ class UserRepository private constructor(
             val idUser = successResponse.idUser.toString()
             saveSession(UserModel(accessToken, refreshToken, idUser, true))
             Log.d("DEBUG", getSession().toString())
+        } catch (e: Exception) {
+            emit(Result.Error(e.message.toString()))
+        }
+    }
+
+    fun saveSkinType(skintypes: String, sensitif: String, context: Context) : LiveData<Result<SkinTypeResponse>> = liveData {
+        emit(Result.Loading)
+        try {
+            val skinTypeRequest = SkinTypeRequest(skintypes, sensitif)
+            val successResponse = ApiConfig.getApiService(context).skinType(skinTypeRequest)
+            emit(Result.Success(successResponse))
         } catch (e: Exception) {
             emit(Result.Error(e.message.toString()))
         }

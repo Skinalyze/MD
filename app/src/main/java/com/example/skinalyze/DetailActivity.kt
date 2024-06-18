@@ -1,6 +1,7 @@
 package com.example.skinalyze
 
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import androidx.activity.enableEdgeToEdge
 import androidx.activity.viewModels
@@ -9,6 +10,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import com.bumptech.glide.Glide
+import com.bumptech.glide.request.RequestOptions;
 import com.example.skinalyze.Utils.skinProblemMapping
 import com.example.skinalyze.data.response.DetailProductResponse
 import com.example.skinalyze.databinding.ActivityDetailBinding
@@ -38,17 +40,34 @@ class DetailActivity : AppCompatActivity() {
     }
 
     private fun setDetailProductData(product: DetailProductResponse?) {
-        var problems = product?.notableEffects?.get(0)?.let { skinProblemMapping(it) }
-        for (i in 1 until product?.notableEffects?.size!!) {
-            problems += ", " + product.notableEffects[i]?.let { skinProblemMapping(it) }
+        val listProblem = mutableSetOf<String>()
+        for (i in 0 until product?.notableEffects?.size!!) {
+            product.notableEffects[i]?.let { skinProblemMapping(it) }
+                ?.let { listProblem.addAll(it) }
         }
+        val problems = listProblem.joinToString()
+
+        Log.d("DEBUG PROBLEMS", problems)
 
         var skinTypes = product.skinType?.get(0)
         for (i in 1 until product.skinType?.size!!) {
             skinTypes += ", " + product.skinType[i]
         }
+        var imageSrc = product.pictureSrc
+        if (imageSrc?.endsWith("\r")!!) {
+            imageSrc = imageSrc.dropLast(1)
+        }
 
-        Glide.with(binding.imgProduct.context).load(product.pictureSrc).into(binding.imgProduct)
+        Log.d("cek image", imageSrc)
+        Glide.with(this).load(imageSrc).into(binding.imgProduct)
+
+//        Glide.with(binding.imgProduct.context)
+//            .load(imageSrc)
+////            .override(800, 800)
+//            .centerCrop()
+//            .placeholder(android.R.drawable.progress_indeterminate_horizontal)
+//            .error(android.R.drawable.stat_notify_error)
+//            .into(binding.imgProduct)
         binding.tvBrandType.text= product.brand
         binding.tvName.text = product.productName
         binding.tvDescription.text = product.description

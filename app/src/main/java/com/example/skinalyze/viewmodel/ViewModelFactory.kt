@@ -31,6 +31,9 @@ class ViewModelFactory(private val userRepository: UserRepository) : ViewModelPr
             modelClass.isAssignableFrom(DetailViewModel::class.java) -> {
                 DetailViewModel(userRepository) as T
             }
+            modelClass.isAssignableFrom(SkinTypeViewModel::class.java) -> {
+                SkinTypeViewModel(userRepository) as T
+            }
             else -> throw IllegalArgumentException("Unknown ViewModel class: " + modelClass.name)
         }
     }

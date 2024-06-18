@@ -21,10 +21,6 @@ class ProductViewModel(private val userRepository: UserRepository) : ViewModel()
 
     lateinit var productName: String
 
-    fun getSession(): LiveData<UserModel> {
-        return userRepository.getSession().asLiveData()
-    }
-
     fun findProduct(context: Context) {
         val client = ApiConfig.getApiService(context).search(productName)
 

@@ -17,6 +17,18 @@ class Mapper {
         "Balancing" to "Normal"
     )
 
+    private val sensitiveToId: Map<String, String> = mapOf(
+        "Ya" to "1",
+        "Tidak" to "0",
+    )
+
+    private val skinTypeToId: Map<String, String> = mapOf(
+        "Kombinasi" to "1",
+        "Kering" to "2",
+        "Normal" to "3",
+        "Berminyak" to "4",
+    )
+
     private val reverseStringToStringMap: Map<String, String> = problemToLabelID.entries.associate { (k, v) -> v to k }
 
     fun getMappedValue(key: String): String? {
@@ -41,5 +53,13 @@ class Mapper {
 
     fun getAllProblemsForLabels(labels: List<String>): List<String> {
         return labels.mapNotNull { getProblemForLabel(it) }
+    }
+
+    fun getIdFromSensitiveLabel(label: String): String? {
+        return sensitiveToId[label]
+    }
+
+    fun getIdFromSkinTypeLabel(label: String): String? {
+        return skinTypeToId[label]
     }
 }
