@@ -67,10 +67,7 @@
     <string name="man">Laki-laki</string>
     <string name="sensitive_skin">, Sensitif</string>
     <string name="no_skintype">Anda belum menentukan jenis kulit Anda.</string>
-<<<<<<< HEAD
     <string name="no_history">Anda belum punya riwayat</string>
-=======
     <string name="simpan">SIMPAN</string>
->>>>>>> 0e62eb332a1c350d9aeeff167ee663ee4170e416
-
+    <string name="delete_history">hapus riwayat</string>
 </resources>

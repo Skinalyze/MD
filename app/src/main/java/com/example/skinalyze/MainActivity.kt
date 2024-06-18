@@ -41,7 +41,7 @@ class MainActivity : AppCompatActivity() {
                 finish()
             } else {
                 Log.d("DEBUG", "user is logged in with token: ${user.accessToken}")
-                profileViewModel.getProfile(this).observe(this) {
+                profileViewModel.getProfile().observe(this) {
                 }
                 checkIfSkinTypeIsNull()
             }
@@ -82,7 +82,7 @@ class MainActivity : AppCompatActivity() {
     private fun checkIfSkinTypeIsNull() {
         Log.d("DEBUG", "check skin type")
 
-        profileViewModel.profile.observe(this) { result ->
+        profileViewModel.profileResult.observe(this) { result ->
             result?.let {
                 when (it) {
                     is Result.Loading -> {

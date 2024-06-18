@@ -1,6 +1,7 @@
 package com.example.skinalyze
 
 import android.content.Intent
+import android.graphics.drawable.ColorDrawable
 import android.os.Build
 import android.os.Bundle
 import android.util.Log
@@ -10,6 +11,7 @@ import android.view.WindowManager
 import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.skinalyze.adapter.RecommendationAdapter
@@ -37,7 +39,7 @@ class HistoryActivity : AppCompatActivity() {
 
         binding.noHistory.visibility = View.GONE
 
-        setupView()
+        setupActionBar()
 
         val layoutManager = LinearLayoutManager(this)
         binding.rvHistory.layoutManager = layoutManager
@@ -74,7 +76,9 @@ class HistoryActivity : AppCompatActivity() {
                         override fun onItemClicked(id: String) {
                             val resultIntent = Intent(this@HistoryActivity, ResultActivity::class.java)
                             resultIntent.putExtra(ResultActivity.ID_RESULT, id)
+//                            resultIntent.putExtra(ResultActivity.PREVIOUS_ACTIVITY, "history")
                             startActivity(resultIntent)
+                            finish()
                         }
                     })
                 }
@@ -95,16 +99,23 @@ class HistoryActivity : AppCompatActivity() {
         Toast.makeText(this, message, Toast.LENGTH_SHORT).show()
     }
 
-    private fun setupView() {
-        @Suppress("DEPRECATION")
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
-            window.insetsController?.hide(WindowInsets.Type.statusBars())
-        } else {
-            window.setFlags(
-                WindowManager.LayoutParams.FLAG_FULLSCREEN,
-                WindowManager.LayoutParams.FLAG_FULLSCREEN
-            )
+    private fun setupActionBar() {
+        val actionBar = supportActionBar
+        actionBar?.apply {
+            val color = ContextCompat.getColor(this@HistoryActivity, R.color.white)
+            setBackgroundDrawable(ColorDrawable(color))
+            title = "Riwayat Analisis Kulit"
+            setDisplayHomeAsUpEnabled(true)
+
+            val upArrow =
+                ContextCompat.getDrawable(this@HistoryActivity, R.drawable.baseline_arrow_back_24)
+            setHomeAsUpIndicator(upArrow)
         }
-        supportActionBar?.hide()
     }
+
+    override fun onSupportNavigateUp(): Boolean {
+        onBackPressed()
+        return true
+    }
+
 }

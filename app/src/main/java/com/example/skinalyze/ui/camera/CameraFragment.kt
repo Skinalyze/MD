@@ -40,7 +40,6 @@ class CameraFragment : Fragment() {
     private val binding get() = _binding!!
 
     private var currentImageUri: Uri? = null
-    private var resultText: String? = null
 
     private lateinit var imageClassifierHelper: ImageClassifierHelper
 
@@ -140,7 +139,6 @@ class CameraFragment : Fragment() {
                     requireActivity().runOnUiThread {
                         results?.let {
                             Log.d("camera", it.toString())
-                            resultText = it[0].categories[0].label
                             val skinProblem = it[0].categories[0].label
                             val idSkinProblem = skinProblemToLabel(skinProblem.trim())
                             getUserInfo(idSkinProblem)
@@ -241,6 +239,7 @@ class CameraFragment : Fragment() {
                     val id = sortedList[0].id.toString()
                     val intent = Intent(requireContext(), ResultActivity::class.java)
                     intent.putExtra(ResultActivity.ID_RESULT, id)
+//                    intent.putExtra(ResultActivity.PREVIOUS_ACTIVITY, "camera")
                     startActivity(intent)
                 }
                 is Result.Error -> {
