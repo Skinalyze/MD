@@ -12,6 +12,7 @@ import androidx.fragment.app.viewModels
 import com.example.skinalyze.HistoryActivity
 import com.example.skinalyze.R
 import com.example.skinalyze.SkinTypeActivity
+import com.example.skinalyze.Utils.skinTypeTranslate
 import com.example.skinalyze.databinding.FragmentProfileBinding
 import com.example.skinalyze.viewmodel.ViewModelFactory
 import com.example.skinalyze.data.repository.Result
@@ -37,10 +38,10 @@ class ProfileFragment : Fragment() {
         _binding = FragmentProfileBinding.inflate(inflater, container, false)
         val root: View = binding.root
 
-        viewModel.getProfile(requireContext()).observe(viewLifecycleOwner) {
+        viewModel.getProfile().observe(viewLifecycleOwner) {
         }
 
-        viewModel.profile.observe(viewLifecycleOwner) { result ->
+        viewModel.profileResult.observe(viewLifecycleOwner) { result ->
             result?.let {
                 when (it) {
                     is Result.Loading -> {
@@ -61,11 +62,14 @@ class ProfileFragment : Fragment() {
                         if (profile.sensitif == null && profile.skintype == null) {
                             binding.skinType.text = getString(R.string.no_skintype)
                         } else {
-                            if (profile.sensitif == 1) {
-                                binding.skinType.text = profile.skintype + getString(R.string.sensitive_skin)
-                            }
-                            else {
-                                binding.skinType.text = profile.skintype
+                            profile.skintype?.let {
+                                val translatedSkinType = skinTypeTranslate(it)
+                                val skinTypeText = if (profile.sensitif == 1) {
+                                    "$translatedSkinType ${getString(R.string.sensitive_skin)}"
+                                } else {
+                                    translatedSkinType
+                                }
+                                binding.skinType.text = skinTypeText
                             }
                         }
                     }

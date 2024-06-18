@@ -7,6 +7,18 @@
     android:layout_height="match_parent"
     tools:context=".ResultActivity">
 
+    <ProgressBar
+        android:id="@+id/progressBar"
+        style="?attr/progressBarStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:visibility="visible" />
+
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolbar"
         android:layout_width="0dp"
@@ -543,7 +555,7 @@
             </androidx.cardview.widget.CardView>
 
             <TextView
-                android:id="@+id/moisturizerLabel"
+                android:id="@+id/serumLabel"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
@@ -554,7 +566,7 @@
                 android:layout_marginBottom="10dp"
                 android:layout_marginTop="20dp"
                 android:gravity="center"
-                android:text="@string/moisturizer"
+                android:text="@string/serum"
                 app:layout_constraintTop_toBottomOf="@id/cardView6"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent" />
@@ -567,7 +579,7 @@
                 android:layout_gravity="center"
                 app:cardCornerRadius="8dp"
                 app:cardElevation="4dp"
-                app:layout_constraintTop_toBottomOf="@id/moisturizerLabel"
+                app:layout_constraintTop_toBottomOf="@id/serumLabel"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent">
 
@@ -737,7 +749,7 @@
             </androidx.cardview.widget.CardView>
 
             <TextView
-                android:id="@+id/sunscreenLabel"
+                android:id="@+id/moisturizerLabel"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
@@ -748,202 +760,8 @@
                 android:layout_marginBottom="10dp"
                 android:layout_marginTop="20dp"
                 android:gravity="center"
-                android:text="@string/sunscreen"
+                android:text="@string/moisturizer"
                 app:layout_constraintTop_toBottomOf="@id/cardView9"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintEnd_toEndOf="parent" />
-
-            <androidx.cardview.widget.CardView
-                android:id="@+id/cardView13"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_margin="16dp"
-                android:layout_gravity="center"
-                app:cardCornerRadius="8dp"
-                app:cardElevation="4dp"
-                app:layout_constraintTop_toBottomOf="@id/serumLabel"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintEnd_toEndOf="parent">
-
-                <androidx.constraintlayout.widget.ConstraintLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:padding="8dp">
-
-                    <ImageView
-                        android:id="@+id/img_item_photo13"
-                        android:layout_width="70dp"
-                        android:layout_height="70dp"
-                        android:scaleType="centerCrop"
-                        android:contentDescription="@string/product_image"
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent"
-                        tools:src="@tools:sample/avatars" />
-
-                    <TextView
-                        android:id="@+id/tv_item_brand13"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="8dp"
-                        android:layout_marginEnd="8dp"
-                        android:layout_marginTop="10dp"
-                        android:layout_toEndOf="@id/img_item_photo13"
-                        android:textSize="16sp"
-                        android:textStyle="bold"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toEndOf="@+id/img_item_photo13"
-                        app:layout_constraintTop_toTopOf="@+id/img_item_photo13"
-                        tools:text="@string/product_brand" />
-
-                    <TextView
-                        android:id="@+id/tv_item_name13"
-                        android:layout_width="0dp"
-                        android:layout_height="0dp"
-                        android:layout_marginTop="8dp"
-                        android:textSize="20sp"
-                        app:layout_constraintBottom_toBottomOf="@+id/img_item_photo13"
-                        app:layout_constraintEnd_toEndOf="@+id/tv_item_brand13"
-                        app:layout_constraintStart_toStartOf="@+id/tv_item_brand13"
-                        app:layout_constraintTop_toBottomOf="@+id/tv_item_brand13"
-                        app:layout_constraintVertical_bias="0.0"
-                        tools:text="@string/product_name" />
-
-                </androidx.constraintlayout.widget.ConstraintLayout>
-            </androidx.cardview.widget.CardView>
-
-            <androidx.cardview.widget.CardView
-                android:id="@+id/cardView14"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_margin="16dp"
-                android:layout_gravity="center"
-                app:cardCornerRadius="8dp"
-                app:cardElevation="4dp"
-                app:layout_constraintTop_toBottomOf="@id/cardView13"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintEnd_toEndOf="parent">
-
-                <androidx.constraintlayout.widget.ConstraintLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:padding="8dp">
-
-                    <ImageView
-                        android:id="@+id/img_item_photo14"
-                        android:layout_width="70dp"
-                        android:layout_height="70dp"
-                        android:scaleType="centerCrop"
-                        android:contentDescription="@string/product_image"
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent"
-                        tools:src="@tools:sample/avatars" />
-
-                    <TextView
-                        android:id="@+id/tv_item_brand14"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="8dp"
-                        android:layout_marginEnd="8dp"
-                        android:layout_marginTop="10dp"
-                        android:layout_toEndOf="@id/img_item_photo14"
-                        android:textSize="16sp"
-                        android:textStyle="bold"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toEndOf="@+id/img_item_photo14"
-                        app:layout_constraintTop_toTopOf="@+id/img_item_photo14"
-                        tools:text="@string/product_brand" />
-
-                    <TextView
-                        android:id="@+id/tv_item_name14"
-                        android:layout_width="0dp"
-                        android:layout_height="0dp"
-                        android:layout_marginTop="8dp"
-                        android:textSize="20sp"
-                        app:layout_constraintBottom_toBottomOf="@+id/img_item_photo14"
-                        app:layout_constraintEnd_toEndOf="@+id/tv_item_brand14"
-                        app:layout_constraintStart_toStartOf="@+id/tv_item_brand14"
-                        app:layout_constraintTop_toBottomOf="@+id/tv_item_brand14"
-                        app:layout_constraintVertical_bias="0.0"
-                        tools:text="@string/product_name" />
-
-                </androidx.constraintlayout.widget.ConstraintLayout>
-            </androidx.cardview.widget.CardView>
-
-            <androidx.cardview.widget.CardView
-                android:id="@+id/cardView15"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_margin="16dp"
-                android:layout_gravity="center"
-                app:cardCornerRadius="8dp"
-                app:cardElevation="4dp"
-                app:layout_constraintTop_toBottomOf="@id/cardView14"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintEnd_toEndOf="parent">
-
-                <androidx.constraintlayout.widget.ConstraintLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:padding="8dp">
-
-                    <ImageView
-                        android:id="@+id/img_item_photo15"
-                        android:layout_width="70dp"
-                        android:layout_height="70dp"
-                        android:scaleType="centerCrop"
-                        android:contentDescription="@string/product_image"
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent"
-                        tools:src="@tools:sample/avatars" />
-
-                    <TextView
-                        android:id="@+id/tv_item_brand15"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="8dp"
-                        android:layout_marginEnd="8dp"
-                        android:layout_marginTop="10dp"
-                        android:layout_toEndOf="@id/img_item_photo15"
-                        android:textSize="16sp"
-                        android:textStyle="bold"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toEndOf="@+id/img_item_photo15"
-                        app:layout_constraintTop_toTopOf="@+id/img_item_photo15"
-                        tools:text="@string/product_brand" />
-
-                    <TextView
-                        android:id="@+id/tv_item_name15"
-                        android:layout_width="0dp"
-                        android:layout_height="0dp"
-                        android:layout_marginTop="8dp"
-                        android:textSize="20sp"
-                        app:layout_constraintBottom_toBottomOf="@+id/img_item_photo15"
-                        app:layout_constraintEnd_toEndOf="@+id/tv_item_brand15"
-                        app:layout_constraintStart_toStartOf="@+id/tv_item_brand15"
-                        app:layout_constraintTop_toBottomOf="@+id/tv_item_brand15"
-                        app:layout_constraintVertical_bias="0.0"
-                        tools:text="@string/product_name" />
-
-                </androidx.constraintlayout.widget.ConstraintLayout>
-            </androidx.cardview.widget.CardView>
-
-            <TextView
-                android:id="@+id/serumLabel"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:textSize="22sp"
-                android:textStyle="bold"
-                android:textColor="@android:color/black"
-                android:layout_marginHorizontal="20dp"
-                android:layout_marginBottom="10dp"
-                android:layout_marginTop="20dp"
-                android:gravity="center"
-                android:text="@string/serum"
-                app:layout_constraintTop_toBottomOf="@id/cardView12"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent" />
 
@@ -955,7 +773,7 @@
                 android:layout_gravity="center"
                 app:cardCornerRadius="8dp"
                 app:cardElevation="4dp"
-                app:layout_constraintTop_toBottomOf="@id/sunscreenLabel"
+                app:layout_constraintTop_toBottomOf="@id/moisturizerLabel"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent">
 
@@ -1125,6 +943,199 @@
             </androidx.cardview.widget.CardView>
 
 
+            <TextView
+                android:id="@+id/sunscreenLabel"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:textSize="22sp"
+                android:textStyle="bold"
+                android:textColor="@android:color/black"
+                android:layout_marginHorizontal="20dp"
+                android:layout_marginBottom="10dp"
+                android:layout_marginTop="20dp"
+                android:gravity="center"
+                android:text="@string/sunscreen"
+                app:layout_constraintTop_toBottomOf="@id/cardView12"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent" />
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/cardView13"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_margin="16dp"
+                android:layout_gravity="center"
+                app:cardCornerRadius="8dp"
+                app:cardElevation="4dp"
+                app:layout_constraintTop_toBottomOf="@id/sunscreenLabel"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent">
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:padding="8dp">
+
+                    <ImageView
+                        android:id="@+id/img_item_photo13"
+                        android:layout_width="70dp"
+                        android:layout_height="70dp"
+                        android:scaleType="centerCrop"
+                        android:contentDescription="@string/product_image"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        tools:src="@tools:sample/avatars" />
+
+                    <TextView
+                        android:id="@+id/tv_item_brand13"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="8dp"
+                        android:layout_marginEnd="8dp"
+                        android:layout_marginTop="10dp"
+                        android:layout_toEndOf="@id/img_item_photo13"
+                        android:textSize="16sp"
+                        android:textStyle="bold"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toEndOf="@+id/img_item_photo13"
+                        app:layout_constraintTop_toTopOf="@+id/img_item_photo13"
+                        tools:text="@string/product_brand" />
+
+                    <TextView
+                        android:id="@+id/tv_item_name13"
+                        android:layout_width="0dp"
+                        android:layout_height="0dp"
+                        android:layout_marginTop="8dp"
+                        android:textSize="20sp"
+                        app:layout_constraintBottom_toBottomOf="@+id/img_item_photo13"
+                        app:layout_constraintEnd_toEndOf="@+id/tv_item_brand13"
+                        app:layout_constraintStart_toStartOf="@+id/tv_item_brand13"
+                        app:layout_constraintTop_toBottomOf="@+id/tv_item_brand13"
+                        app:layout_constraintVertical_bias="0.0"
+                        tools:text="@string/product_name" />
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+            </androidx.cardview.widget.CardView>
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/cardView14"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_margin="16dp"
+                android:layout_gravity="center"
+                app:cardCornerRadius="8dp"
+                app:cardElevation="4dp"
+                app:layout_constraintTop_toBottomOf="@id/cardView13"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent">
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:padding="8dp">
+
+                    <ImageView
+                        android:id="@+id/img_item_photo14"
+                        android:layout_width="70dp"
+                        android:layout_height="70dp"
+                        android:scaleType="centerCrop"
+                        android:contentDescription="@string/product_image"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        tools:src="@tools:sample/avatars" />
+
+                    <TextView
+                        android:id="@+id/tv_item_brand14"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="8dp"
+                        android:layout_marginEnd="8dp"
+                        android:layout_marginTop="10dp"
+                        android:layout_toEndOf="@id/img_item_photo14"
+                        android:textSize="16sp"
+                        android:textStyle="bold"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toEndOf="@+id/img_item_photo14"
+                        app:layout_constraintTop_toTopOf="@+id/img_item_photo14"
+                        tools:text="@string/product_brand" />
+
+                    <TextView
+                        android:id="@+id/tv_item_name14"
+                        android:layout_width="0dp"
+                        android:layout_height="0dp"
+                        android:layout_marginTop="8dp"
+                        android:textSize="20sp"
+                        app:layout_constraintBottom_toBottomOf="@+id/img_item_photo14"
+                        app:layout_constraintEnd_toEndOf="@+id/tv_item_brand14"
+                        app:layout_constraintStart_toStartOf="@+id/tv_item_brand14"
+                        app:layout_constraintTop_toBottomOf="@+id/tv_item_brand14"
+                        app:layout_constraintVertical_bias="0.0"
+                        tools:text="@string/product_name" />
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+            </androidx.cardview.widget.CardView>
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/cardView15"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_margin="16dp"
+                android:layout_gravity="center"
+                app:cardCornerRadius="8dp"
+                app:cardElevation="4dp"
+                app:layout_constraintTop_toBottomOf="@id/cardView14"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent">
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:padding="8dp">
+
+                    <ImageView
+                        android:id="@+id/img_item_photo15"
+                        android:layout_width="70dp"
+                        android:layout_height="70dp"
+                        android:scaleType="centerCrop"
+                        android:contentDescription="@string/product_image"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        tools:src="@tools:sample/avatars" />
+
+                    <TextView
+                        android:id="@+id/tv_item_brand15"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="8dp"
+                        android:layout_marginEnd="8dp"
+                        android:layout_marginTop="10dp"
+                        android:layout_toEndOf="@id/img_item_photo15"
+                        android:textSize="16sp"
+                        android:textStyle="bold"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toEndOf="@+id/img_item_photo15"
+                        app:layout_constraintTop_toTopOf="@+id/img_item_photo15"
+                        tools:text="@string/product_brand" />
+
+                    <TextView
+                        android:id="@+id/tv_item_name15"
+                        android:layout_width="0dp"
+                        android:layout_height="0dp"
+                        android:layout_marginTop="8dp"
+                        android:textSize="20sp"
+                        app:layout_constraintBottom_toBottomOf="@+id/img_item_photo15"
+                        app:layout_constraintEnd_toEndOf="@+id/tv_item_brand15"
+                        app:layout_constraintStart_toStartOf="@+id/tv_item_brand15"
+                        app:layout_constraintTop_toBottomOf="@+id/tv_item_brand15"
+                        app:layout_constraintVertical_bias="0.0"
+                        tools:text="@string/product_name" />
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+            </androidx.cardview.widget.CardView>
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 

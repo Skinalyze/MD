@@ -14,19 +14,28 @@ import android.widget.Toast
 import androidx.activity.result.PickVisualMediaRequest
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.ViewModelProvider
 import com.example.skinalyze.Utils.ImageClassifierHelper
 import com.example.skinalyze.databinding.FragmentCameraBinding
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.fragment.app.viewModels
 import com.example.skinalyze.Classifier
 import com.example.skinalyze.R
 import com.example.skinalyze.ResultActivity
 import com.example.skinalyze.Utils.getImageUri
+import com.example.skinalyze.Utils.skinProblemToLabel
+import com.example.skinalyze.Utils.skinTypeMapping
+import com.example.skinalyze.data.repository.Result
+import com.example.skinalyze.viewmodel.ViewModelFactory
 import org.tensorflow.lite.task.vision.classifier.Classifications
+import java.text.SimpleDateFormat
+import java.util.Locale
 
 class CameraFragment : Fragment() {
 
     private var _binding: FragmentCameraBinding? = null
+    private val viewModel by viewModels<CameraViewModel> {
+        ViewModelFactory.getInstance(requireContext())
+    }
 
     // This property is only valid between onCreateView and
     // onDestroyView.
@@ -62,8 +71,6 @@ class CameraFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        val cameraViewModel =
-            ViewModelProvider(this).get(CameraViewModel::class.java)
 
         _binding = FragmentCameraBinding.inflate(inflater, container, false)
         val root: View = binding.root
@@ -155,8 +162,9 @@ class CameraFragment : Fragment() {
                         results?.let {
                             Log.d("camera", it.toString())
                             resultText = it[0].categories[0].label
-                            getRecommendation()
-                            moveToResult()
+                            val skinProblem = it[0].categories[0].label
+                            val idSkinProblem = skinProblemToLabel(skinProblem.trim())
+                            getUserInfo(idSkinProblem)
                         }
                     }
                 }
@@ -165,19 +173,107 @@ class CameraFragment : Fragment() {
         currentImageUri?.let { imageClassifierHelper.classifyStaticImage(it) }
     }
 
-    private fun getRecommendation() {
-        // TODO get user skintype
+    private fun getUserInfo(idSkinProblem: String) {
+        viewModel.getProfile().observe(viewLifecycleOwner) {
+        }
 
-        // call api
+        viewModel.profileResult.observe(viewLifecycleOwner) { result ->
+            result?.let {
+                when (it) {
+                    is Result.Loading -> {
+                        showLoading(true)
+                    }
+                    is Result.Success -> {
+                        val skintype = it.data.skintype
+                        val idSkintype = skintype?.let { it1 -> skinTypeMapping(it1.trim()) }
 
-        // send to result, trs bind manual?????
+                        if (idSkintype != null) {
+                            getRecommendations(idSkintype, idSkinProblem)
+                        }
+                    }
+                    is Result.Error -> {
+                        showToast(it.error)
+                        Log.d("profile", it.error)
+                    }
+                }
+            }
+        }
+    }
 
+    private fun getRecommendations(idSkintype: Int, idSkinProblem: String) {
+        viewModel.getRecommendation(idSkintype, idSkinProblem).observe(viewLifecycleOwner) {
+        }
+
+        viewModel.recommendationsResult.observe(viewLifecycleOwner) { result ->
+            result?.let {
+                when (it) {
+                    is Result.Loading -> {
+                        showLoading(true)
+                    }
+                    is Result.Success -> {
+                        var idSkincare = ""
+                        for (product in it.data) {
+                            idSkincare += product.id.toString()
+                            idSkincare += ","
+                        }
+                        idSkincare = idSkincare.dropLast(1)
+                        postRecommendation(idSkintype, idSkinProblem, idSkincare)
+                    }
+                    is Result.Error -> {
+                        showToast(it.error)
+                        Log.d("profile", it.error)
+                    }
+                }
+            }
+        }
+    }
+
+    private fun postRecommendation(idSkintype: Int, idSkinProblem: String, idSkincare: String) {
+        viewModel.postRecommendation(idSkintype, idSkinProblem, idSkincare).observe(viewLifecycleOwner) { result ->
+            when(result) {
+                is Result.Success -> {
+                    moveToResult()
+                }
+                is Result.Loading -> {
+                    showLoading(true)
+                }
+                is Result.Error -> {
+                    showToast(result.error)
+                }
+
+            }
+        }
     }
 
     private fun moveToResult() {
-        val intent = Intent(requireContext(), ResultActivity::class.java)
-        intent.putExtra(ResultActivity.EXTRA_RESULT, resultText)
-        startActivity(intent)
+        viewModel.getHistory().observe(this) {
+        }
+
+        viewModel.historyResult.observe(this) { history ->
+            when (history) {
+                is Result.Loading -> {
+                showLoading(true)
+                }
+                is Result.Success -> {
+                    val sortedList = history.data.sortedByDescending { recommendation ->
+                        val originalFormat = SimpleDateFormat("EEE MMM dd HH:mm:ss zzz yyyy", Locale.ENGLISH)
+                        originalFormat.parse(recommendation.timestamp.toString())?.time ?: 0L
+                    }
+                    val id = sortedList[0].id.toString()
+                    val intent = Intent(requireContext(), ResultActivity::class.java)
+                    intent.putExtra(ResultActivity.ID_RESULT, id)
+                    startActivity(intent)
+                }
+                is Result.Error -> {
+                    showToast(history.error)
+                }
+            }
+        }
+
+    }
+
+    private fun showLoading(isLoading: Boolean) {
+        binding.progressBar.visibility = if (isLoading) View.VISIBLE else View.GONE
     }
 
     private fun showToast(message: String) {

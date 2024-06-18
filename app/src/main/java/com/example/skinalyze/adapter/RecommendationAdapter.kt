@@ -1,13 +1,18 @@
 package com.example.skinalyze.adapter
 
-import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
+import com.example.skinalyze.R
+import com.example.skinalyze.Utils.labelToSkinProblem
+import com.example.skinalyze.Utils.skinTypeTranslate
 import com.example.skinalyze.data.response.Recommendation
 import com.example.skinalyze.databinding.ItemRowHistoryBinding
+import java.text.SimpleDateFormat
+import java.util.Date
+import java.util.Locale
 
 class RecommendationAdapter : ListAdapter<Recommendation, RecommendationAdapter.MyViewHolder>(DIFF_CALLBACK) {
     private lateinit var onItemClickCallback: OnItemClickCallback
@@ -22,28 +27,32 @@ class RecommendationAdapter : ListAdapter<Recommendation, RecommendationAdapter.
     }
 
     override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
-        val account = getItem(position)
-        holder.bind(account)
-//        val favoriteUser = FavoriteUser(
-//            username = account.login, avatarUrl = account.avatarUrl
-//        )
-//        holder.itemView.setOnClickListener {
-//            onItemClickCallback.onItemClicked(favoriteUser)
-//        }
+        val recommendation = getItem(position)
+        holder.bind(recommendation)
+        holder.itemView.setOnClickListener {
+            onItemClickCallback.onItemClicked(recommendation.id.toString())
+        }
 
     }
 
     class MyViewHolder(private val binding: ItemRowHistoryBinding) : RecyclerView.ViewHolder(binding.root) {
-        @SuppressLint("SetTextI18n")
+
         fun bind(recommendation: Recommendation){
-            binding.tvProblems.text = recommendation.skinProblem
-            if (recommendation.isSensitive == true) {
-                binding.tvSkinType.text = recommendation.skinType + ", Sensitif"
+            binding.tvProblems.text = labelToSkinProblem(recommendation.skinProblem)
+            if (recommendation.isSensitive == 1) {
+                binding.tvSkinType.text = skinTypeTranslate(recommendation.skinType) + ", Sensitif"
             }
             else {
-                binding.tvSkinType.text = recommendation.skinType
+                binding.tvSkinType.text = skinTypeTranslate(recommendation.skinType)
             }
-            binding.tvTimestamp.text = recommendation.timestamp.toString()
+
+
+            val originalFormat = SimpleDateFormat("EEE MMM dd HH:mm:ss zzz yyyy", Locale.ENGLISH)
+            val targetFormat = SimpleDateFormat("EEEE, dd MMMM yyyy HH:mm:ss", Locale("id", "ID"))
+            val date: Date? = originalFormat.parse(recommendation.timestamp.toString())
+            val formattedDate: String = date?.let { targetFormat.format(it) }.toString()
+
+            binding.tvTimestamp.text = formattedDate
         }
     }
 
