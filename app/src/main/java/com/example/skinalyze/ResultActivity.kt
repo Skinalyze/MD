@@ -13,7 +13,6 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import com.bumptech.glide.Glide
 import com.example.skinalyze.Utils.labelArrayToSkinProblem
-import com.example.skinalyze.Utils.labelToSkinProblem
 import com.example.skinalyze.Utils.skinTypeTranslate
 import com.example.skinalyze.data.repository.Result
 import com.example.skinalyze.databinding.ActivityResultBinding
