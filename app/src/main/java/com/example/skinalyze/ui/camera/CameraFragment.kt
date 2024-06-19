@@ -181,10 +181,9 @@ class CameraFragment : Fragment() {
         viewModel.postRecommendation(idSkintype, idSkinProblem).observe(viewLifecycleOwner) { result ->
             when(result) {
                 is Result.Success -> {
-                    Log.d("resultnya apa", result.data.toString())
                     val intent = Intent(requireContext(), ResultActivity::class.java)
                     intent.putExtra(ResultActivity.ID_RESULT, result.data.id_rekomendasi.toString())
-//                    intent.putExtra(ResultActivity.PREVIOUS_ACTIVITY, "camera")
+                    intent.putExtra(ResultActivity.PREVIOUS_ACTIVITY, "camera")
                     startActivity(intent)
                 }
                 is Result.Loading -> {

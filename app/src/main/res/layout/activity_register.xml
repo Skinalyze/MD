@@ -123,29 +123,6 @@
             </com.google.android.material.textfield.TextInputLayout>
 
             <TextView
-                android:id="@+id/genderTextView"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="8dp"
-                android:text="@string/jenis_kelamin"
-                android:textColor="@color/black" />
-
-            <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/genderEditTextLayout"
-                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="16dp">
-
-                <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/genderEditText"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:ems="10"
-                    android:inputType="text" />
-            </com.google.android.material.textfield.TextInputLayout>
-
-            <TextView
                 android:id="@+id/ageTextView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -168,12 +145,54 @@
                     android:inputType="text|number" />
             </com.google.android.material.textfield.TextInputLayout>
 
+            <TextView
+                android:id="@+id/genderTextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="8dp"
+                android:text="@string/jenis_kelamin"
+                android:textColor="@color/black" />
+
+            <RadioGroup
+                android:id="@+id/radio_jenis_kelamin"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:orientation="horizontal"
+                android:gravity="center_horizontal"
+                android:paddingHorizontal="5dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/genderTextView">
+
+                <RadioButton
+                    android:id="@+id/radio_man"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/man"
+                    android:textSize="18sp"
+                    android:checked="true"
+                    android:paddingHorizontal="10dp"
+                    android:layout_marginEnd="30dp"
+                    app:buttonTint="@color/pink"/>
+
+                <RadioButton
+                    android:id="@+id/radio_woman"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/woman"
+                    android:textSize="18sp"
+                    android:paddingHorizontal="10dp"
+                    android:layout_marginStart="30dp"
+                    app:buttonTint="@color/pink"/>
+            </RadioGroup>
+
             <Button
                 android:id="@+id/signupButton"
                 android:layout_width="wrap_content"
                 android:layout_height="45dp"
                 android:layout_marginStart="32dp"
-                android:layout_marginTop="15dp"
+                android:layout_marginTop="20dp"
                 android:layout_marginBottom="32dp"
                 android:layout_marginEnd="32dp"
                 android:backgroundTint="@color/pink"
@@ -181,7 +200,7 @@
                 android:text="@string/daftar_uppercase"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/ageEditTextLayout" />
+                app:layout_constraintTop_toBottomOf="@+id/radio_jenis_kelamin" />
 
         </LinearLayout>
 

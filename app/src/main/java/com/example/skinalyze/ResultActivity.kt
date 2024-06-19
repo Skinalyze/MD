@@ -30,7 +30,7 @@ class ResultActivity : AppCompatActivity() {
     }
 
     private lateinit var id: String
-//    private lateinit var previous_activity: String
+    private lateinit var previous_activity: String
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -41,14 +41,14 @@ class ResultActivity : AppCompatActivity() {
         setupActionBar()
 
         id = intent.getStringExtra(ID_RESULT).toString()
-//        previous_activity = intent.getStringExtra(PREVIOUS_ACTIVITY).toString()
+        previous_activity = intent.getStringExtra(PREVIOUS_ACTIVITY).toString()
 
         viewModel.getDetailRecommendation(id).observe(this) { response ->
             Log.d("result", response.toString())
         }
 
         viewModel.detailRecommendationResult.observe(this) { result ->
-            Log.d("objek result", result.toString())
+
             when (result) {
                 is Result.Loading -> {
                     showLoading(true)
@@ -56,7 +56,6 @@ class ResultActivity : AppCompatActivity() {
                 is Result.Success -> {
                     showLoading(false)
                     val detail = result.data
-                    Log.d("result jadi", detail.toString())
                     val originalFormat = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'", Locale.ENGLISH)
                     originalFormat.timeZone = TimeZone.getTimeZone("UTC")
                     val targetFormat = SimpleDateFormat("EEEE, dd MMMM yyyy HH:mm:ss", Locale("id", "ID"))
@@ -133,30 +132,7 @@ class ResultActivity : AppCompatActivity() {
             }
         }
 
-        viewModel.deleteRecommendationResult.observe(this) {
-            when (it) {
-                is Result.Loading -> {
-                    showLoading(true)
-                }
 
-                is Result.Success -> {
-                    showLoading(false)
-//                    if (previous_activity == "history") {
-//                        val intent = Intent(this, HistoryActivity::class.java)
-//                        startActivity(intent)
-//                    } else {
-//                        onBackPressed()
-//                    }
-//                    finish()
-                }
-
-                is Result.Error -> {
-                    showLoading(false)
-                    showToast(it.error)
-                    Log.d("error", it.error)
-                }
-            }
-        }
     }
 
     private fun showLoading(isLoading: Boolean) {
@@ -190,6 +166,33 @@ class ResultActivity : AppCompatActivity() {
             R.id.deleteRecommendation -> {
                 viewModel.deleteRecommendation(id.toInt()).observe(this) {
                 }
+
+                viewModel.deleteRecommendationResult.observe(this) {
+                    when (it) {
+                        is Result.Loading -> {
+                            showLoading(true)
+                        }
+                        is Result.Success -> {
+                            showLoading(false)
+                            if (previous_activity == "history") {
+                                val intent = Intent(this, HistoryActivity::class.java).apply {
+                                    flags = Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_NEW_TASK
+                                }
+                                startActivity(intent)
+                                finish()
+                            } else {
+                                onBackPressed()
+                            }
+
+                        }
+                        is Result.Error -> {
+                            showLoading(false)
+                            showToast(it.error)
+                            Log.d("error", it.error)
+                        }
+                    }
+                }
+
                 true
             }
             else-> {
