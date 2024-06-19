@@ -61,7 +61,7 @@ class LoginActivity : AppCompatActivity() {
                 when(result) {
                     is Result.Success -> {
                         showLoading(false)
-                        showToast("Login success!")
+                        showToast("Login berhasil!")
                         navigateToMain()
                     }
                     is Result.Loading -> {

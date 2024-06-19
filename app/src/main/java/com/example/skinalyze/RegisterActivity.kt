@@ -50,14 +50,21 @@ class RegisterActivity : AppCompatActivity() {
             val name = binding.nameEditText.text.toString()
             val email = binding.emailEditText.text.toString()
             val password = binding.passwordEditText.text.toString()
-            val gender = binding.genderEditText.text.toString()
             val age = binding.ageEditText.text.toString().toInt()
+
+            val gender: String
+            val radioId = binding.radioJenisKelamin.checkedRadioButtonId
+            if (radioId == R.id.radio_man) {
+                gender = "laki-laki"
+            } else {
+                gender = "perempuan"
+            }
             viewModel.register(name, email, password, gender, age)
                 .observe(this@RegisterActivity) { result ->
                     when (result) {
                         is Result.Success -> {
                             showLoading(false)
-                            showToast("Account created!")
+                            showToast("Akun berhasil dibuat!")
                             navigateToLogin()
                         }
                         is Result.Loading -> {

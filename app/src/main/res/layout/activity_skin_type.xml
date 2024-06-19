@@ -66,7 +66,8 @@
                 android:text="@string/normal"
                 android:textSize="18sp"
                 android:checked="true"
-                android:paddingHorizontal="5dp"/>
+                android:paddingHorizontal="5dp"
+                app:buttonTint="@color/pink"/>
 
             <RadioButton
                 android:id="@+id/radio_oily"
@@ -74,7 +75,8 @@
                 android:layout_height="wrap_content"
                 android:text="@string/oily"
                 android:textSize="18sp"
-                android:paddingHorizontal="5dp"/>
+                android:paddingHorizontal="5dp"
+                app:buttonTint="@color/pink"/>
 
             <RadioButton
                 android:id="@+id/radio_dry"
@@ -82,7 +84,8 @@
                 android:layout_height="wrap_content"
                 android:text="@string/dry"
                 android:textSize="18sp"
-                android:paddingHorizontal="5dp"/>
+                android:paddingHorizontal="5dp"
+                app:buttonTint="@color/pink"/>
 
             <RadioButton
                 android:id="@+id/radio_combination"
@@ -90,7 +93,8 @@
                 android:layout_height="wrap_content"
                 android:text="@string/combination"
                 android:textSize="18sp"
-                android:paddingHorizontal="5dp"/>
+                android:paddingHorizontal="5dp"
+                app:buttonTint="@color/pink"/>
         </RadioGroup>
 
         <TextView
@@ -123,7 +127,8 @@
                 android:text="@string/sensitive"
                 android:textSize="18sp"
                 android:checked="true"
-                android:paddingHorizontal="5dp"/>
+                android:paddingHorizontal="5dp"
+                app:buttonTint="@color/pink"/>
 
             <RadioButton
                 android:id="@+id/radio_not_sensitive"
@@ -131,7 +136,8 @@
                 android:layout_height="wrap_content"
                 android:text="@string/not_sensitive"
                 android:textSize="18sp"
-                android:paddingHorizontal="5dp"/>
+                android:paddingHorizontal="5dp"
+                app:buttonTint="@color/pink"/>
         </RadioGroup>
 
         <Button
