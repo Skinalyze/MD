@@ -76,9 +76,8 @@ class HistoryActivity : AppCompatActivity() {
                         override fun onItemClicked(id: String) {
                             val resultIntent = Intent(this@HistoryActivity, ResultActivity::class.java)
                             resultIntent.putExtra(ResultActivity.ID_RESULT, id)
-//                            resultIntent.putExtra(ResultActivity.PREVIOUS_ACTIVITY, "history")
+                            resultIntent.putExtra(ResultActivity.PREVIOUS_ACTIVITY, "history")
                             startActivity(resultIntent)
-                            finish()
                         }
                     })
                 }

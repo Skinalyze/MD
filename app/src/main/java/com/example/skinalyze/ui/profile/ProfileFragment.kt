@@ -42,7 +42,7 @@ class ProfileFragment : Fragment() {
         }
 
         viewModel.profileResult.observe(viewLifecycleOwner) { result ->
-            result?.let {
+            result?.let { it ->
                 when (it) {
                     is Result.Loading -> {
                         showLoading(true)
@@ -65,7 +65,7 @@ class ProfileFragment : Fragment() {
                             profile.skintype?.let {
                                 val translatedSkinType = skinTypeTranslate(it)
                                 val skinTypeText = if (profile.sensitif == 1) {
-                                    "$translatedSkinType ${getString(R.string.sensitive_skin)}"
+                                    "$translatedSkinType${getString(R.string.sensitive_skin)}"
                                 } else {
                                     translatedSkinType
                                 }

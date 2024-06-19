@@ -16,7 +16,7 @@ class SearchAdapter: ListAdapter<Product, SearchAdapter.MyViewHolder>(DIFF_CALLB
         RecyclerView.ViewHolder(binding.root) {
         fun bind(product: Product) {
             var imageSrc = product.foto
-            if (imageSrc?.endsWith("\r")!!) {
+            if (imageSrc.endsWith("\r")) {
                 imageSrc = imageSrc.dropLast(1)
             }
 

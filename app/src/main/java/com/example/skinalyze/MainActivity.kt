@@ -1,6 +1,5 @@
 package com.example.skinalyze
 
-import android.content.Context
 import android.content.Intent
 import android.os.Build
 import android.os.Bundle
@@ -15,7 +14,6 @@ import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
 import com.example.skinalyze.databinding.ActivityMainBinding
-import com.example.skinalyze.adapter.SearchAdapter
 import com.example.skinalyze.data.repository.Result
 import com.example.skinalyze.ui.profile.ProfileViewModel
 import com.example.skinalyze.viewmodel.MainViewModel
