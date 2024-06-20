@@ -2,9 +2,12 @@ package com.example.skinalyze
 
 import android.content.Intent
 import android.graphics.drawable.ColorDrawable
+import android.os.Build
 import android.os.Bundle
 import android.util.Log
 import android.view.View
+import android.view.WindowInsets
+import android.view.WindowManager
 import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
@@ -26,8 +29,21 @@ class RegisterActivity : AppCompatActivity() {
         binding = ActivityRegisterBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        setupView()
         setupActionBar()
         setupAction()
+    }
+
+    private fun setupView() {
+        @Suppress("DEPRECATION")
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
+            window.insetsController?.hide(WindowInsets.Type.statusBars())
+        } else {
+            window.setFlags(
+                WindowManager.LayoutParams.FLAG_FULLSCREEN,
+                WindowManager.LayoutParams.FLAG_FULLSCREEN
+            )
+        }
     }
 
     private fun setupActionBar() {
@@ -36,10 +52,11 @@ class RegisterActivity : AppCompatActivity() {
             val color = ContextCompat.getColor(this@RegisterActivity, R.color.white)
             setBackgroundDrawable(ColorDrawable(color))
             title = "Daftar"
+            elevation = 0.0F
             setDisplayHomeAsUpEnabled(true)
 
             val upArrow =
-                ContextCompat.getDrawable(this@RegisterActivity, R.drawable.baseline_arrow_back_24)
+                ContextCompat.getDrawable(this@RegisterActivity, R.drawable.baseline_arrow_back_ios_24)
             setHomeAsUpIndicator(upArrow)
         }
     }

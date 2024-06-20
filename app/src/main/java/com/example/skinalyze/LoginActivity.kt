@@ -32,8 +32,21 @@ class LoginActivity : AppCompatActivity() {
         binding = ActivityLoginBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        setupView()
         setupActionBar()
         setupAction()
+    }
+
+    private fun setupView() {
+        @Suppress("DEPRECATION")
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
+            window.insetsController?.hide(WindowInsets.Type.statusBars())
+        } else {
+            window.setFlags(
+                WindowManager.LayoutParams.FLAG_FULLSCREEN,
+                WindowManager.LayoutParams.FLAG_FULLSCREEN
+            )
+        }
     }
 
     private fun setupActionBar() {
@@ -42,10 +55,11 @@ class LoginActivity : AppCompatActivity() {
             val color = ContextCompat.getColor(this@LoginActivity, R.color.white)
             setBackgroundDrawable(ColorDrawable(color))
             title = "Masuk"
+            elevation = 0.0F
             setDisplayHomeAsUpEnabled(true)
 
             val upArrow =
-                ContextCompat.getDrawable(this@LoginActivity, R.drawable.baseline_arrow_back_24)
+                ContextCompat.getDrawable(this@LoginActivity, R.drawable.baseline_arrow_back_ios_24)
             setHomeAsUpIndicator(upArrow)
         }
     }

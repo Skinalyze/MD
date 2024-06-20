@@ -7,6 +7,7 @@ import android.util.Log
 import android.view.View
 import android.view.WindowInsets
 import android.view.WindowManager
+import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.findNavController
@@ -78,29 +79,20 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun checkIfSkinTypeIsNull() {
-        Log.d("DEBUG", "check skin type")
-
         profileViewModel.profileResult.observe(this) { result ->
             result?.let {
                 when (it) {
                     is Result.Loading -> {
-                        Log.d("DEBUG", "is loading")
-                        showLoading(true)
                     }
                     is Result.Success -> {
-                        Log.d("DEBUG", "success")
-                        showLoading(false)
                         val profile = it.data
-                        Log.d("DEBUG sensitif", profile.sensitif.toString())
-                        Log.d("DEBUG skin type", profile.skintype.toString())
 
                         if (profile.sensitif == null || profile.skintype == null) {
                             navigateToSkinTypeActivity()
                         }
                     }
                     is Result.Error -> {
-                        showLoading(false)
-                        Log.d("DEBUG", "error")
+                        showToast(it.error)
                     }
                 }
             }
@@ -108,13 +100,12 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun navigateToSkinTypeActivity() {
-        Log.d("DEBUG", "navigate to skin type")
         val intent = Intent(this@MainActivity, SkinTypeActivity::class.java)
         startActivity(intent)
         finish()
     }
 
-    private fun showLoading(isLoading: Boolean) {
-        binding.progressBar.visibility = if (isLoading) View.VISIBLE else View.GONE
+    private fun showToast(message: String) {
+        Toast.makeText(this, message, Toast.LENGTH_SHORT).show()
     }
 }

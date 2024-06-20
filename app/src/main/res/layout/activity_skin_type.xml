@@ -3,14 +3,15 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="@color/white">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:padding="16dp"
         android:layout_marginVertical="30dp"
-        android:layout_marginHorizontal="12dp">
+        android:layout_marginHorizontal="20dp">
 
         <ProgressBar
             android:id="@+id/progressBar"
@@ -30,8 +31,9 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
             android:text="@string/skin_type_form_header"
-            android:textSize="21sp"
+            android:textSize="22sp"
             android:textStyle="bold"
+            android:layout_marginHorizontal="10dp"
             android:textAlignment="center"
             android:textColor="@color/pink"
             app:layout_constraintEnd_toEndOf="parent"
@@ -103,7 +105,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="24dp"
             android:text="@string/sensitive_skin_question"
-            android:textSize="18sp"
+            android:textSize="20sp"
             android:textStyle="bold"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -143,7 +145,7 @@
         <Button
             android:id="@+id/saveButton"
             android:layout_width="wrap_content"
-            android:layout_height="45dp"
+            android:layout_height="50dp"
             android:layout_marginStart="32dp"
             android:layout_marginTop="15dp"
             android:layout_marginBottom="32dp"
@@ -151,6 +153,7 @@
             android:backgroundTint="@color/pink"
             android:layout_gravity="center_horizontal"
             android:text="@string/simpan"
+            android:textSize="16sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/radio_sensitive_skin" />

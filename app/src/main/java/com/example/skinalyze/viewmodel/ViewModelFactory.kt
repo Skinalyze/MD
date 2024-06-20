@@ -33,7 +33,7 @@ class ViewModelFactory(private val userRepository: UserRepository) : ViewModelPr
                 ProductViewModel(userRepository) as T
             }
             modelClass.isAssignableFrom(DetailViewModel::class.java) -> {
-                DetailViewModel(userRepository) as T
+                DetailViewModel() as T
             }
             modelClass.isAssignableFrom(SkinTypeViewModel::class.java) -> {
                 SkinTypeViewModel(userRepository) as T
