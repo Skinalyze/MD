@@ -2,9 +2,12 @@ package com.example.skinalyze
 
 import android.content.Intent
 import android.graphics.drawable.ColorDrawable
+import android.os.Build
 import android.os.Bundle
 import android.util.Log
 import android.view.View
+import android.view.WindowInsets
+import android.view.WindowManager
 import android.widget.RadioButton
 import android.widget.RadioGroup
 import android.widget.Toast
@@ -35,6 +38,7 @@ class SkinTypeActivity : AppCompatActivity() {
         binding = ActivitySkinTypeBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        setupView()
         setupActionBar()
         setupAction()
     }
@@ -44,11 +48,25 @@ class SkinTypeActivity : AppCompatActivity() {
         actionBar?.apply {
             val color = ContextCompat.getColor(this@SkinTypeActivity, R.color.white)
             setBackgroundDrawable(ColorDrawable(color))
+            title = ""
+            elevation = 0.0F
             setDisplayHomeAsUpEnabled(true)
 
             val upArrow =
-                ContextCompat.getDrawable(this@SkinTypeActivity, R.drawable.baseline_arrow_back_24)
+                ContextCompat.getDrawable(this@SkinTypeActivity, R.drawable.baseline_arrow_back_ios_24)
             setHomeAsUpIndicator(upArrow)
+        }
+    }
+
+    private fun setupView() {
+        @Suppress("DEPRECATION")
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
+            window.insetsController?.hide(WindowInsets.Type.statusBars())
+        } else {
+            window.setFlags(
+                WindowManager.LayoutParams.FLAG_FULLSCREEN,
+                WindowManager.LayoutParams.FLAG_FULLSCREEN
+            )
         }
     }
 
@@ -112,5 +130,10 @@ class SkinTypeActivity : AppCompatActivity() {
 
     private fun showToast(message: String) {
         Toast.makeText(this, message, Toast.LENGTH_SHORT).show()
+    }
+
+    override fun onSupportNavigateUp(): Boolean {
+        onBackPressed()
+        return true
     }
 }

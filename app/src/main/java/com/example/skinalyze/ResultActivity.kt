@@ -2,11 +2,14 @@ package com.example.skinalyze
 
 import android.content.Intent
 import android.graphics.drawable.ColorDrawable
+import android.os.Build
 import android.os.Bundle
 import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
+import android.view.WindowInsets
+import android.view.WindowManager
 import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
@@ -38,6 +41,7 @@ class ResultActivity : AppCompatActivity() {
         binding = ActivityResultBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        setupView()
         setupActionBar()
 
         id = intent.getStringExtra(ID_RESULT).toString()
@@ -115,7 +119,11 @@ class ResultActivity : AppCompatActivity() {
                         if (imgLink.endsWith("\r")) {
                             imgLink = imgLink.dropLast(1)
                         }
-                        Glide.with(this).load(imgLink).into(photoImageViews[i])
+                        Glide
+                            .with(this)
+                            .load(imgLink)
+                            .error(R.drawable.baseline_broken_image_24)
+                            .into(photoImageViews[i])
                         cardViews[i].setOnClickListener {
                             val moveToDetailUserIntent = Intent(this, DetailActivity::class.java)
                             moveToDetailUserIntent.putExtra(DetailActivity.ID, product.idSkinCare)
@@ -149,10 +157,11 @@ class ResultActivity : AppCompatActivity() {
             val color = ContextCompat.getColor(this@ResultActivity, R.color.white)
             setBackgroundDrawable(ColorDrawable(color))
             title = "Hasil Analisis"
+            elevation = 0.0F
             setDisplayHomeAsUpEnabled(true)
 
             val upArrow =
-                ContextCompat.getDrawable(this@ResultActivity, R.drawable.baseline_arrow_back_24)
+                ContextCompat.getDrawable(this@ResultActivity, R.drawable.baseline_arrow_back_ios_24)
             setHomeAsUpIndicator(upArrow)
         }
     }
@@ -206,6 +215,17 @@ class ResultActivity : AppCompatActivity() {
         return true
     }
 
+    private fun setupView() {
+        @Suppress("DEPRECATION")
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
+            window.insetsController?.hide(WindowInsets.Type.statusBars())
+        } else {
+            window.setFlags(
+                WindowManager.LayoutParams.FLAG_FULLSCREEN,
+                WindowManager.LayoutParams.FLAG_FULLSCREEN
+            )
+        }
+    }
 
     companion object {
         const val ID_RESULT = "id_result"

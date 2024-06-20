@@ -5,7 +5,7 @@ fun skinProblemMapping(skinProblem: String): Set<String> {
     val mappings = mapOf(
         "Acne-Free" to setOf("Jerawat"),
         "Anti-Aging" to setOf("Keriput", "Kantung Mata"),
-        "Balancing" to setOf("Jerawat,", "Komedo", "Kemerahan Kulit", "Pori-Pori"),
+        "Balancing" to setOf("Jerawat", "Komedo", "Kemerahan Kulit", "Pori-Pori"),
         "Black-Spot" to setOf("Flek Hitam"),
         "Brightening" to setOf("Flek Hitam", "Kantung Mata"),
         "Hydrating" to setOf("Kantung Mata"),

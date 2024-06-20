@@ -20,12 +20,12 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:padding="8dp">
+        android:padding="15dp">
 
         <ImageView
             android:id="@+id/img_item_photo"
-            android:layout_width="70dp"
-            android:layout_height="70dp"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
             android:scaleType="centerCrop"
             android:contentDescription="@string/product_image"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -35,31 +35,41 @@
 
         <TextView
             android:id="@+id/tv_item_brand"
-            android:layout_width="0dp"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            android:layout_marginEnd="8dp"
-            android:layout_marginTop="10dp"
-            android:layout_toEndOf="@id/img_item_photo"
-            android:textSize="16sp"
+            android:layout_marginStart="10dp"
+            android:layout_marginEnd="10dp"
+            android:textSize="14sp"
             android:textStyle="bold"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/img_item_photo"
-            app:layout_constraintTop_toTopOf="@+id/img_item_photo"
+            android:textColor="@color/pink"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toEndOf="@id/img_item_photo"
+            app:layout_constraintBottom_toTopOf="@id/tv_item_name"
             tools:text="@string/product_brand" />
 
         <TextView
             android:id="@+id/tv_item_name"
             android:layout_width="0dp"
-            android:layout_height="0dp"
-            android:layout_marginTop="8dp"
-            android:textSize="20sp"
-            app:layout_constraintBottom_toBottomOf="@+id/img_item_photo"
-            app:layout_constraintEnd_toEndOf="@+id/tv_item_brand"
-            app:layout_constraintStart_toStartOf="@+id/tv_item_brand"
-            app:layout_constraintTop_toBottomOf="@+id/tv_item_brand"
-            app:layout_constraintVertical_bias="0.0"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="1dp"
+            android:layout_marginStart="10dp"
+            android:layout_marginEnd="10dp"
+            android:textSize="16sp"
+            app:layout_constraintStart_toEndOf="@id/img_item_photo"
+            app:layout_constraintEnd_toStartOf="@id/nextIcon"
+            app:layout_constraintTop_toBottomOf="@id/tv_item_brand"
+            app:layout_constraintBottom_toBottomOf="parent"
             tools:text="@string/product_name" />
+
+        <ImageView
+            android:id="@+id/nextIcon"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="8dp"
+            android:src="@drawable/baseline_navigate_next_24_pink"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </com.google.android.material.card.MaterialCardView>

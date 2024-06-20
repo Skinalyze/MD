@@ -39,6 +39,7 @@ class HistoryActivity : AppCompatActivity() {
 
         binding.noHistory.visibility = View.GONE
 
+        setupView()
         setupActionBar()
 
         val layoutManager = LinearLayoutManager(this)
@@ -104,11 +105,24 @@ class HistoryActivity : AppCompatActivity() {
             val color = ContextCompat.getColor(this@HistoryActivity, R.color.white)
             setBackgroundDrawable(ColorDrawable(color))
             title = "Riwayat Analisis Kulit"
+            elevation = 0.0F
             setDisplayHomeAsUpEnabled(true)
 
             val upArrow =
-                ContextCompat.getDrawable(this@HistoryActivity, R.drawable.baseline_arrow_back_24)
+                ContextCompat.getDrawable(this@HistoryActivity, R.drawable.baseline_arrow_back_ios_24)
             setHomeAsUpIndicator(upArrow)
+        }
+    }
+
+    private fun setupView() {
+        @Suppress("DEPRECATION")
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
+            window.insetsController?.hide(WindowInsets.Type.statusBars())
+        } else {
+            window.setFlags(
+                WindowManager.LayoutParams.FLAG_FULLSCREEN,
+                WindowManager.LayoutParams.FLAG_FULLSCREEN
+            )
         }
     }
 

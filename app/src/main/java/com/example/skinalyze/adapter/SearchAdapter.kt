@@ -6,6 +6,7 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.example.skinalyze.R
 import com.example.skinalyze.databinding.ItemRowProductBinding
 import com.example.skinalyze.data.response.Product
 
@@ -20,7 +21,12 @@ class SearchAdapter: ListAdapter<Product, SearchAdapter.MyViewHolder>(DIFF_CALLB
                 imageSrc = imageSrc.dropLast(1)
             }
 
-            Glide.with(binding.cardView.context).load(imageSrc).centerCrop().into(binding.imgItemPhoto)
+            Glide.with(binding.cardView.getContext())
+                .load(imageSrc)
+                .centerCrop()
+                .error(R.drawable.baseline_broken_image_24)
+                .into(binding.imgItemPhoto);
+
             binding.tvItemBrand.text = product.brand
             binding.tvItemName.text = product.productName
         }

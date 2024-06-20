@@ -20,56 +20,62 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:padding="8dp">
+        android:padding="15dp">
 
         <TextView
             android:id="@+id/tvTimestamp"
-            android:layout_width="0dp"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
             android:layout_marginEnd="8dp"
             android:layout_marginTop="10dp"
             android:textSize="16sp"
             android:textStyle="bold"
-            app:layout_constraintStart_toStartOf="parent"
+            android:textColor="@color/darkGrey"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintBottom_toTopOf="@id/tvProblems"
             tools:text="23 Januari 2024 | 08:12" />
 
         <TextView
             android:id="@+id/tvProblems"
-            android:layout_width="0dp"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
-            android:layout_marginTop="5dp"
+            android:layout_marginTop="10dp"
             android:textSize="20sp"
+            android:textColor="@color/white"
+            android:background="@drawable/full_rounded_corner_pink"
+            android:paddingHorizontal="20dp"
+            android:paddingVertical="4dp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/tvTimestamp"
-            app:layout_constraintEnd_toStartOf="@id/nextIcon"
-            tools:text="Jerawat, Kerutan" />
+            tools:text="Jerawat" />
 
         <ImageView
             android:id="@+id/nextIcon"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_marginEnd="8dp"
-            android:src="@drawable/baseline_navigate_next_24"
+            android:src="@drawable/baseline_navigate_next_24_pink"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@id/tvProblems"
             app:layout_constraintBottom_toTopOf="@id/tvSkinType"
             app:layout_constraintTop_toBottomOf="@id/tvTimestamp"/>
 
         <TextView
             android:id="@+id/tvSkinType"
-            android:layout_width="0dp"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
             android:layout_marginEnd="8dp"
-            android:layout_marginTop="5dp"
-            android:textSize="16sp"
+            android:layout_marginTop="8dp"
             android:textStyle="bold"
-            app:layout_constraintStart_toStartOf="parent"
+            android:textSize="16sp"
+            android:textColor="@color/pink"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/tvProblems"
             tools:text="Kering, Sensitif" />
     </androidx.constraintlayout.widget.ConstraintLayout>
