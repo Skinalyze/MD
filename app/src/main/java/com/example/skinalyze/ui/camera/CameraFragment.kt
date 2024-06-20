@@ -45,9 +45,9 @@ class CameraFragment : Fragment() {
             ActivityResultContracts.RequestPermission()
         ) { isGranted: Boolean ->
             if (isGranted) {
-                showToast("Permission request granted")
+                showToast("Izin diberikan")
             } else {
-                showToast("Permission request denied")
+                showToast("Izin ditolak")
             }
         }
 
