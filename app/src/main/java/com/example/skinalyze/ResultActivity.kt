@@ -185,11 +185,10 @@ class ResultActivity : AppCompatActivity() {
                                     flags = Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_NEW_TASK
                                 }
                                 startActivity(intent)
-                                finish()
                             } else {
                                 onBackPressed()
                             }
-
+                            finish()
                         }
                         is Result.Error -> {
                             showLoading(false)
@@ -208,6 +207,7 @@ class ResultActivity : AppCompatActivity() {
 
     override fun onSupportNavigateUp(): Boolean {
         onBackPressed()
+        finish()
         return true
     }
 

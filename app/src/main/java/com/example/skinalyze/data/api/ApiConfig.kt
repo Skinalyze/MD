@@ -30,8 +30,6 @@ class ApiConfig {
                 userPreference.getSession().map { it.accessToken }.firstOrNull()
             }
 
-            Log.d("DEBUG CONFIG", token.toString())
-
             val headerInterceptor = Interceptor { chain ->
                 val request = chain.request().newBuilder()
                     .addHeader("Authorization", "Bearer $token")
