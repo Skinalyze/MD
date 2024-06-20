@@ -5,6 +5,7 @@ import android.content.Intent
 import android.content.pm.PackageManager
 import android.net.Uri
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -98,7 +99,7 @@ class CameraFragment : Fragment() {
             currentImageUri = uri
             showImage()
         } else {
-            showToast("Tidak ada foto yang dipilih")
+            Log.d("Photo picker", "No media selected")
         }
     }
 
