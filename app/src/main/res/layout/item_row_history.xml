@@ -59,6 +59,7 @@
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_marginEnd="8dp"
+            android:contentDescription="@string/navigate_to_detail"
             android:src="@drawable/baseline_navigate_next_24_pink"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintBottom_toTopOf="@id/tvSkinType"

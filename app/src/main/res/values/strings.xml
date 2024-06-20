@@ -71,4 +71,17 @@
     <string name="simpan">SIMPAN</string>
     <string name="delete_history">hapus riwayat</string>
     <string name="informasi_personal">Informasi Personal</string>
+    <string name="selected_photo">Foto yang dipilih</string>
+    <string name="image_login">foto login</string>
+    <string name="image_register">foto register</string>
+    <string name="logo_skinalyze">logo skinalyze</string>
+    <string name="onboarding_acne">analisis kulit</string>
+    <string name="onboarding_skincare">rekomendasi skincare</string>
+    <string name="navigate_to_detail">lihat detail</string>
+    <string name="email_icon">ikon email</string>
+    <string name="gender_icon">ikon jenis kelamin</string>
+    <string name="age_icon">ikon umur</string>
+    <string name="edit_skintype">ubah jenis kulit</string>
+    <string name="move_to_history">lihat riwayat</string>
+    <string name="history_icon">ikon riwayat</string>
 </resources>

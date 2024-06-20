@@ -1,4 +1,4 @@
-package com.example.skinalyze.Utils
+package com.example.skinalyze.helper
 
 
 fun skinProblemMapping(skinProblem: String): Set<String> {
@@ -55,7 +55,7 @@ fun skinProblemToLabel(skinProblem: String): String {
     )
     return mappings[skinProblem] ?: ""
 }
-fun labelArrayToSkinProblem(label: List<String>) : String{
+fun labelArrayToSkinProblem(label: List<String>): String {
     return when {
         "Acne-Free" in label -> "Jerawat"
         "Pore-Care" in label -> "Komedo"
@@ -65,4 +65,22 @@ fun labelArrayToSkinProblem(label: List<String>) : String{
         else -> ""
     }
 
+}
+
+fun getIdFromSensitiveLabel(label: String): String {
+    val mappings = mapOf(
+        "Ya" to "1",
+        "Tidak" to "0",
+    )
+    return mappings[label] ?: ""
+}
+
+fun getIdFromSkinTypeLabel(label: String): String {
+    val skinTypeToId = mapOf(
+        "Kombinasi" to "1",
+        "Kering" to "2",
+        "Normal" to "3",
+        "Berminyak" to "4",
+    )
+    return skinTypeToId[label] ?: ""
 }

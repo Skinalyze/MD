@@ -13,20 +13,18 @@ import android.widget.Toast
 import androidx.activity.result.PickVisualMediaRequest
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
-import com.example.skinalyze.Utils.ImageClassifierHelper
+import com.example.skinalyze.helper.ImageClassifierHelper
 import com.example.skinalyze.databinding.FragmentCameraBinding
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.fragment.app.viewModels
 import com.example.skinalyze.R
 import com.example.skinalyze.ResultActivity
-import com.example.skinalyze.Utils.getImageUri
-import com.example.skinalyze.Utils.skinProblemToLabel
-import com.example.skinalyze.Utils.skinTypeMapping
+import com.example.skinalyze.helper.getImageUri
+import com.example.skinalyze.helper.skinProblemToLabel
+import com.example.skinalyze.helper.skinTypeMapping
 import com.example.skinalyze.data.repository.Result
 import com.example.skinalyze.viewmodel.ViewModelFactory
 import org.tensorflow.lite.task.vision.classifier.Classifications
-import java.text.SimpleDateFormat
-import java.util.Locale
 
 class CameraFragment : Fragment() {
 
@@ -48,9 +46,9 @@ class CameraFragment : Fragment() {
             ActivityResultContracts.RequestPermission()
         ) { isGranted: Boolean ->
             if (isGranted) {
-                showToast("Permission request granted")
+                showToast("Izin diberikan")
             } else {
-                showToast("Permission request denied")
+                showToast("Izin ditolak")
             }
         }
 
@@ -101,7 +99,7 @@ class CameraFragment : Fragment() {
             currentImageUri = uri
             showImage()
         } else {
-            Log.d("Photo Picker", "No media selected")
+            Log.d("Photo picker", "No media selected")
         }
     }
 
@@ -137,7 +135,6 @@ class CameraFragment : Fragment() {
                 override fun onResults(results: List<Classifications>?) {
                     requireActivity().runOnUiThread {
                         results?.let {
-                            Log.d("camera", it.toString())
                             val skinProblem = it[0].categories[0].label
                             val idSkinProblem = skinProblemToLabel(skinProblem.trim())
                             getUserInfo(idSkinProblem)
@@ -170,7 +167,6 @@ class CameraFragment : Fragment() {
                     }
                     is Result.Error -> {
                         showToast(it.error)
-                        Log.d("profile", it.error)
                     }
                 }
             }
@@ -181,8 +177,9 @@ class CameraFragment : Fragment() {
         viewModel.postRecommendation(idSkintype, idSkinProblem).observe(viewLifecycleOwner) { result ->
             when(result) {
                 is Result.Success -> {
+                    showLoading(false)
                     val intent = Intent(requireContext(), ResultActivity::class.java)
-                    intent.putExtra(ResultActivity.ID_RESULT, result.data.id_rekomendasi.toString())
+                    intent.putExtra(ResultActivity.ID_RESULT, result.data.idRekomendasi.toString())
                     intent.putExtra(ResultActivity.PREVIOUS_ACTIVITY, "camera")
                     startActivity(intent)
                 }
@@ -190,6 +187,7 @@ class CameraFragment : Fragment() {
                     showLoading(true)
                 }
                 is Result.Error -> {
+                    showLoading(false)
                     showToast(result.error)
                 }
 

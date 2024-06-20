@@ -1,11 +1,9 @@
 package com.example.skinalyze
 
-import android.content.Context
 import android.content.Intent
 import android.graphics.drawable.ColorDrawable
 import android.os.Build
 import android.os.Bundle
-import android.util.Log
 import android.view.View
 import android.view.WindowInsets
 import android.view.WindowManager
@@ -13,10 +11,8 @@ import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
-import com.example.skinalyze.data.api.ApiConfig
 import com.example.skinalyze.data.repository.Result
 import com.example.skinalyze.databinding.ActivityLoginBinding
-import com.example.skinalyze.ui.profile.ProfileViewModel
 import com.example.skinalyze.viewmodel.LoginViewModel
 import com.example.skinalyze.viewmodel.ViewModelFactory
 
@@ -91,7 +87,6 @@ class LoginActivity : AppCompatActivity() {
     }
 
     private fun navigateToMain() {
-        Log.d("DEBUG", "navigate to main")
         val intent = Intent(this@LoginActivity, MainActivity::class.java)
         startActivity(intent)
         finish()

@@ -4,9 +4,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
 import com.example.skinalyze.data.repository.Result
 import com.example.skinalyze.data.repository.UserRepository
-import com.example.skinalyze.data.response.DetailProductResponse
 import com.example.skinalyze.data.response.ProfileResponse
-import com.example.skinalyze.data.response.Recommendation
 
 class CameraViewModel(private val userRepository: UserRepository
 ) : ViewModel() {

@@ -4,7 +4,6 @@ import android.content.Intent
 import android.graphics.drawable.ColorDrawable
 import android.os.Build
 import android.os.Bundle
-import android.util.Log
 import android.view.View
 import android.view.WindowInsets
 import android.view.WindowManager
@@ -71,10 +70,10 @@ class RegisterActivity : AppCompatActivity() {
 
             val gender: String
             val radioId = binding.radioJenisKelamin.checkedRadioButtonId
-            if (radioId == R.id.radio_man) {
-                gender = "laki-laki"
+            gender = if (radioId == R.id.radio_man) {
+                "laki-laki"
             } else {
-                gender = "perempuan"
+                "perempuan"
             }
             viewModel.register(name, email, password, gender, age)
                 .observe(this@RegisterActivity) { result ->
