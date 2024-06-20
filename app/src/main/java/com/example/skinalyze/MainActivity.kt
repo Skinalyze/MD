@@ -3,8 +3,6 @@ package com.example.skinalyze
 import android.content.Intent
 import android.os.Build
 import android.os.Bundle
-import android.util.Log
-import android.view.View
 import android.view.WindowInsets
 import android.view.WindowManager
 import android.widget.Toast
@@ -39,7 +37,6 @@ class MainActivity : AppCompatActivity() {
                 startActivity(Intent(this, OnboardingActivity::class.java))
                 finish()
             } else {
-                Log.d("DEBUG", "user is logged in with token: ${user.accessToken}")
                 profileViewModel.getProfile().observe(this) {
                 }
                 checkIfSkinTypeIsNull()

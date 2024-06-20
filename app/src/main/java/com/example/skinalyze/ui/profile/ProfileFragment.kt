@@ -2,7 +2,6 @@ package com.example.skinalyze.ui.profile
 
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -12,11 +11,10 @@ import androidx.fragment.app.viewModels
 import com.example.skinalyze.HistoryActivity
 import com.example.skinalyze.R
 import com.example.skinalyze.SkinTypeActivity
-import com.example.skinalyze.Utils.skinTypeTranslate
+import com.example.skinalyze.helper.skinTypeTranslate
 import com.example.skinalyze.databinding.FragmentProfileBinding
 import com.example.skinalyze.viewmodel.ViewModelFactory
 import com.example.skinalyze.data.repository.Result
-
 
 class ProfileFragment : Fragment() {
 
@@ -76,7 +74,6 @@ class ProfileFragment : Fragment() {
                     is Result.Error -> {
                         showLoading(false)
                         showToast(it.error)
-                        Log.d("profile", it.error)
                     }
                 }
             }

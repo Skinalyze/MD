@@ -1,4 +1,4 @@
-package com.example.skinalyze.Utils
+package com.example.skinalyze.helper
 
 import android.content.Context
 import android.graphics.Bitmap
@@ -13,7 +13,7 @@ import org.tensorflow.lite.task.vision.classifier.Classifications
 import org.tensorflow.lite.task.vision.classifier.ImageClassifier
 
 class ImageClassifierHelper(
-    val modelName: String = "model_with_metadata.tflite",
+    private val modelName: String = "model_with_metadata.tflite",
     val context: Context,
     val classifierListener: ClassifierListener?
 ) {
@@ -70,7 +70,4 @@ class ImageClassifierHelper(
         )
     }
 
-    companion object {
-        private const val TAG = "ImageClassifierHelper"
-    }
 }

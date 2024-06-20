@@ -6,16 +6,13 @@ import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import androidx.lifecycle.asLiveData
 import com.example.skinalyze.data.api.ApiConfig
-import com.example.skinalyze.data.repository.UserRepository
 import com.example.skinalyze.data.response.Product
-import com.example.skinalyze.pref.UserModel
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
-class ProductViewModel(private val userRepository: UserRepository) : ViewModel() {
+class ProductViewModel : ViewModel() {
     private val _listProduct = MutableLiveData<List<Product>>()
     val listProduct: LiveData<List<Product>> = _listProduct
 

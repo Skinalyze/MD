@@ -1,4 +1,4 @@
-package com.example.skinalyze.Utils
+package com.example.skinalyze.helper
 
 import android.content.ContentValues
 import android.content.Context

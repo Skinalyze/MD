@@ -12,8 +12,8 @@ import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import com.bumptech.glide.Glide
-import com.example.skinalyze.Utils.skinProblemMapping
-import com.example.skinalyze.Utils.skinTypeTranslate
+import com.example.skinalyze.helper.skinProblemMapping
+import com.example.skinalyze.helper.skinTypeTranslate
 import com.example.skinalyze.data.repository.Result
 import com.example.skinalyze.data.response.DetailProductResponse
 import com.example.skinalyze.databinding.ActivityDetailBinding

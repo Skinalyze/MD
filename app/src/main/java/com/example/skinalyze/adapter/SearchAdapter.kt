@@ -21,11 +21,11 @@ class SearchAdapter: ListAdapter<Product, SearchAdapter.MyViewHolder>(DIFF_CALLB
                 imageSrc = imageSrc.dropLast(1)
             }
 
-            Glide.with(binding.cardView.getContext())
+            Glide.with(binding.cardView.context)
                 .load(imageSrc)
                 .centerCrop()
                 .error(R.drawable.baseline_broken_image_24)
-                .into(binding.imgItemPhoto);
+                .into(binding.imgItemPhoto)
 
             binding.tvItemBrand.text = product.brand
             binding.tvItemName.text = product.productName

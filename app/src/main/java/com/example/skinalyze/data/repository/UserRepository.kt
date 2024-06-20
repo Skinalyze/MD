@@ -44,7 +44,7 @@ class UserRepository private constructor(
     private val _deleteRecommendation = MutableLiveData<Result<RegisterResponse>>()
     val deleteRecommendationResult: LiveData<Result<RegisterResponse>> get() = _deleteRecommendation
 
-    suspend fun saveSession(user: UserModel) {
+    private suspend fun saveSession(user: UserModel) {
         userPreference.saveSession(user)
     }
 
@@ -73,7 +73,6 @@ class UserRepository private constructor(
             val refreshToken = successResponse.refreshToken.toString()
             val idUser = successResponse.idUser.toString()
             saveSession(UserModel(accessToken, refreshToken, idUser, true))
-            Log.d("DEBUG", getSession().toString())
         } catch (e: Exception) {
             emit(Result.Error(e.message.toString()))
         }

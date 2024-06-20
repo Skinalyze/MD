@@ -5,8 +5,8 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import com.example.skinalyze.Utils.labelArrayToSkinProblem
-import com.example.skinalyze.Utils.skinTypeTranslate
+import com.example.skinalyze.helper.labelArrayToSkinProblem
+import com.example.skinalyze.helper.skinTypeTranslate
 import com.example.skinalyze.data.response.Recommendation
 import com.example.skinalyze.databinding.ItemRowHistoryBinding
 import java.text.SimpleDateFormat

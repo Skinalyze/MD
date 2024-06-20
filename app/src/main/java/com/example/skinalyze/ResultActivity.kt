@@ -4,7 +4,6 @@ import android.content.Intent
 import android.graphics.drawable.ColorDrawable
 import android.os.Build
 import android.os.Bundle
-import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
@@ -15,8 +14,8 @@ import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import com.bumptech.glide.Glide
-import com.example.skinalyze.Utils.labelArrayToSkinProblem
-import com.example.skinalyze.Utils.skinTypeTranslate
+import com.example.skinalyze.helper.labelArrayToSkinProblem
+import com.example.skinalyze.helper.skinTypeTranslate
 import com.example.skinalyze.data.repository.Result
 import com.example.skinalyze.databinding.ActivityResultBinding
 import com.example.skinalyze.viewmodel.ResultViewModel
@@ -33,7 +32,7 @@ class ResultActivity : AppCompatActivity() {
     }
 
     private lateinit var id: String
-    private lateinit var previous_activity: String
+    private lateinit var previousActivity: String
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -45,10 +44,9 @@ class ResultActivity : AppCompatActivity() {
         setupActionBar()
 
         id = intent.getStringExtra(ID_RESULT).toString()
-        previous_activity = intent.getStringExtra(PREVIOUS_ACTIVITY).toString()
+        previousActivity = intent.getStringExtra(PREVIOUS_ACTIVITY).toString()
 
-        viewModel.getDetailRecommendation(id).observe(this) { response ->
-            Log.d("result", response.toString())
+        viewModel.getDetailRecommendation(id).observe(this) {
         }
 
         viewModel.detailRecommendationResult.observe(this) { result ->
@@ -135,7 +133,6 @@ class ResultActivity : AppCompatActivity() {
                 is Result.Error -> {
                     showLoading(false)
                     showToast(result.error)
-                    Log.d("result", result.error)
                 }
             }
         }
@@ -183,7 +180,7 @@ class ResultActivity : AppCompatActivity() {
                         }
                         is Result.Success -> {
                             showLoading(false)
-                            if (previous_activity == "history") {
+                            if (previousActivity == "history") {
                                 val intent = Intent(this, HistoryActivity::class.java).apply {
                                     flags = Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_NEW_TASK
                                 }
@@ -197,7 +194,6 @@ class ResultActivity : AppCompatActivity() {
                         is Result.Error -> {
                             showLoading(false)
                             showToast(it.error)
-                            Log.d("error", it.error)
                         }
                     }
                 }

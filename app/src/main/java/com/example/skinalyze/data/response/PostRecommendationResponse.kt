@@ -7,5 +7,5 @@ data class PostRecommendationResponse (
     val message: String,
 
     @field:SerializedName("id_rekomendasi")
-    val id_rekomendasi: Int
+    val idRekomendasi: Int
 )
